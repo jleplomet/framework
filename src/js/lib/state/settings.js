@@ -8,7 +8,6 @@ const settings = {
   language: {},
   staticComponents: [],
   routes: {},
-  history: 'hash',
   mountSelector: '[data-app]'
 };
 

@@ -7,8 +7,6 @@ export default class Index extends Component {
 
 
   render() {
-    console.log(this.props);
-
     return (
       <div className={styles.contentHome}>
         HELLO Jeff
