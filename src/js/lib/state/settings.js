@@ -6,6 +6,9 @@ const settings = {
   languageCode: 'en_us',
   languageFile: false,
   language: {},
+  staticComponents: [],
+  routes: {},
+  history: 'hash',
   mountSelector: '[data-app]'
 };
 

@@ -1,0 +1,9 @@
+
+@import "../mixins.scss";
+
+/* components/core */
+
+.contentWrapper,
+.contentContainer {
+  @include position-relative-element(100%, 100%);
+}

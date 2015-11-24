@@ -1,8 +1,8 @@
 
-import {bootCore, addConstants, updateSettings, renderDom} from 'js/lib/core';
-import CoreComponent from './lib/CoreComponent';
+import "scss/main";
 
-import Index from './components/Index';
+import {bootCore, addConstants, updateSettings, renderDom} from 'js/lib/core';
+import routes from './routes';
 
 // add constants for custom reducer actions or notifications
 // addConstants({
@@ -14,13 +14,7 @@ updateSettings({
   cdnurl: '',
   languageFile: true,
   languageCode: 'en_us',
-  routes: {
-    path: '/',
-    component: CoreComponent,
-    childRoutes: [
-      {indexRoute: true, component: Index}
-    ]
-  }
+  routes
 });
 
 bootCore().then(renderDom);

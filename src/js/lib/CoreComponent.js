@@ -1,7 +1,10 @@
 
+import styles from 'scss/components/core';
+
 import React, {Component, PropTypes, cloneElement} from 'react';
 import {connect} from 'react-redux';
 import {pushState} from 'redux-router';
+import TransitionGroup from 'react-addons-css-transition-group';
 import {cleanPathName, getLanguageForId} from './utils';
 
 function mapStateToProps(state) {
@@ -23,7 +26,8 @@ export default class CoreComponent extends Component {
     const {
       location,
       constants,
-      settings
+      settings,
+      dispatch
     } = this.props;
 
     const componentId = cleanPathName(location.pathname);
@@ -31,19 +35,30 @@ export default class CoreComponent extends Component {
     return {
       key: componentId,
       id: componentId,
-      language: getLanguageForId(componentId, settings.language)
+      language: getLanguageForId(componentId, settings.language),
+      navigate(path) {
+        return dispatch(pushState(null, path));
+      }
     }
   }
 
   render() {
+
     const {
       children,
       location
     } = this.props;
 
     return (
-      <div>
-        {cloneElement(children || <div />, this.getRouteComponentProps())}
+      <div className={styles.contentWrapper}>
+        <TransitionGroup
+          component='div'
+          className={styles.contentContainer}
+          transitionName="swap"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={500}>
+          {cloneElement(children || <div />, this.getRouteComponentProps())}
+        </TransitionGroup>
       </div>
     );
   }

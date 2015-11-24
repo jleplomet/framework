@@ -1,0 +1,12 @@
+
+@import "../mixins.scss";
+
+/* components/index */
+
+.contentHome {
+  @include position-absolute-element(100%, 100%);
+
+  padding: 10px;
+
+  color: red;
+}

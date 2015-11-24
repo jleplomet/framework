@@ -27,8 +27,8 @@ module.exports = {
       },
       // CSS FILES
       {
-        test: /\.css$/,
-        loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]!postcss?sourceMap',
+        test: /\.(scss|css)$/,
+        loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]!sass?sourceMap',
         include: path.join(__dirname, 'src')
       },
       // DATA FILES
@@ -58,13 +58,11 @@ module.exports = {
   ],
 
   resolve: {
-    extensions: ['', '.js', '.css'],
+    extensions: ['', '.js', '.css', '.scss'],
 
     modulesDirectories: [
       'node_modules',
       './src'
     ]
-  },
-
-  reload: true
+  }
 };

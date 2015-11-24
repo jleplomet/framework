@@ -2,6 +2,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Provider} from 'react-redux';
 import {ReduxRouter} from 'redux-router';
+import {createHashHistory} from 'history';
 
 export default class RootComponent extends Component {
   static propTypes = {
@@ -16,6 +17,8 @@ export default class RootComponent extends Component {
       return <Component {...props} />;
     }
 
+    // I dont want all components to hold all router props
+    // I'll have CoreComponent handle what gets what.
     return <Component />;
   }
 
