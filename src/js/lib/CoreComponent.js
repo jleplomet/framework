@@ -3,7 +3,7 @@ import styles from 'scss/components/core';
 
 import React, {Component, PropTypes, cloneElement, createElement} from 'react';
 import {connect} from 'react-redux';
-import {pushState} from 'redux-router';
+import {updatePath} from 'redux-simple-router';
 import TransitionGroup from 'react-addons-css-transition-group';
 import {cleanPathName, getLanguageForId} from './utils';
 
@@ -26,7 +26,12 @@ export default class CoreComponent extends Component {
 
   componentWillUpdate(nextProps) {
     // save reference of previous location.pathname
-    previousPath = cleanPathName(this.props.location.pathname);
+    const nextPathname = cleanPathName(nextProps.location.pathname);
+    const currentPathname = cleanPathName(this.props.location.pathname);
+
+    if (nextPathname !== currentPathname) {
+      previousPath = currentPathname;
+    }
   }
 
   getRouteComponentProps() {
@@ -42,15 +47,20 @@ export default class CoreComponent extends Component {
     return {
       key: componentId,
       id: componentId,
+      location: {
+        pathname: cleanPathName(location.pathname),
+        params: location.query
+      },
       language: getLanguageForId(componentId, settings.language),
       navigate(path) {
-        return dispatch(pushState(null, path));
+        return dispatch(updatePath(path));
       }
     }
   }
 
   renderStaticComponent(component) {
     const {
+      dispatch,
       settings,
       location
     } = this.props;
@@ -60,7 +70,10 @@ export default class CoreComponent extends Component {
       id,
       previousPath,
       currentPath: cleanPathName(location.pathname),
-      language: getLanguageForId(id, settings.language)
+      language: getLanguageForId(id, settings.language),
+      navigate(path) {
+        return dispatch(updatePath(path));
+      }
     };
 
     return createElement(Component, {key: id, ...defaultProps});

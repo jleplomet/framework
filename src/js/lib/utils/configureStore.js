@@ -1,37 +1,47 @@
 
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
-import { reduxReactRouter, routerStateReducer, ReduxRouter } from 'redux-router';
+import {syncReduxAndRouter, routeReducer} from 'redux-simple-router';
 import thunkMiddleware from 'redux-thunk';
 import loggerMiddleware from 'redux-logger';
 import {createMemoryHistory, createHashHistory, createHistory} from 'history';
 
+let _createHistoryType = false;
+
 function setFinalReducers(reducers) {
   return combineReducers({
     ...reducers,
-    router: routerStateReducer
+    routing: routeReducer
   })
 }
 
 export default function configureStore(reducers, historyType, initialState = {}) {
   const finalReducers = setFinalReducers(reducers);
 
-  let createHistoryType = createMemoryHistory;
+  _createHistoryType = createMemoryHistory;
 
   if (historyType === 'HASH_HISTORY') {
-    createHistoryType = createHashHistory;
+    _createHistoryType = createHashHistory;
   } else if (historyType === 'BROWSER_HISTORY') {
-    createHistoryType = createHistory;
+    _createHistoryType = createHistory;
   }
+
+  _createHistoryType = _createHistoryType();
 
   const store = compose(
     applyMiddleware(
       thunkMiddleware,
       loggerMiddleware({level: 'info', collapsed: true})
-    ),
-    reduxReactRouter({createHistory: createHistoryType})
+    )
   )(createStore)(finalReducers, initialState);
 
+  syncReduxAndRouter(_createHistoryType, store);
+
   return store;
+}
+
+
+export function getHistory() {
+  return _createHistoryType;
 }
 
 export function updateStoreReducers(store, reducers) {

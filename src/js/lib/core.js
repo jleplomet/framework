@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as defaultReducers from './reducers';
 import {constantsAdd, settingsUpdate} from './actions';
-import configureStore, {updateStoreReducers} from './utils/configureStore';
+import configureStore, {updateStoreReducers, getHistory} from './utils/configureStore';
 import loadLanguageFile from './utils/loadLanguageFile';
 import RootComponent from './RootComponent';
 import CoreComponent from './CoreComponent';
@@ -71,7 +71,10 @@ export function renderDom() {
     } = settings.toJS();
 
     ReactDOM.render(
-      <RootComponent store={store} routes={routes} />,
+      <RootComponent
+        store={store}
+        routes={routes}
+        history={getHistory()} />,
       document.querySelector(mountSelector),
       resolve
     );

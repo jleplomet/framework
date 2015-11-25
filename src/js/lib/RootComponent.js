@@ -1,8 +1,7 @@
 
 import React, {Component, PropTypes} from 'react';
 import {Provider} from 'react-redux';
-import {ReduxRouter} from 'redux-router';
-import {createHashHistory} from 'history';
+import {Router} from 'react-router';
 
 export default class RootComponent extends Component {
   static propTypes = {
@@ -25,12 +24,14 @@ export default class RootComponent extends Component {
   render() {
     const {
       store,
-      routes
+      routes,
+      history
     } = this.props;
 
     return (
       <Provider store={store}>
-        <ReduxRouter
+        <Router
+          history={history}
           routes={routes}
           createElement={this.createElement.bind(this)} />
       </Provider>

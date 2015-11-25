@@ -25,7 +25,9 @@ updateSettings({
   cdnurl: '',
   languageFile: true,
   languageCode: 'en_us',
-  staticComponents: [],
+  staticComponents: [
+
+  ],
   routes
 });
 
