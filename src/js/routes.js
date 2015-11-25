@@ -2,7 +2,9 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 
+
 import CoreComponent from 'js/lib/CoreComponent';
+
 import Index from 'js/components/Index';
 
 const routes = (

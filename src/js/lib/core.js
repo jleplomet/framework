@@ -14,10 +14,11 @@ let store = false;
 let coreBootMethods = [];
 let reducersAdded = false;
 
-export const HASH_HISTORY = 'HASH_HISTORY';
+export const MEMORY_HISTORY  = 'MEMORY_HISTORY';
+export const HASH_HISTORY    = 'HASH_HISTORY';
 export const BROWSER_HISTORY = 'BROWSER_HISTORY';
 
-export function initCore(historyType = HASH_HISTORY) {
+export function initCore(historyType = MEMORY_HISTORY) {
   console.log(NAMESPACE, 'initCore', historyType);
 
   store = configureStore(defaultReducers, historyType);

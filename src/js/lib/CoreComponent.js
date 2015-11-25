@@ -1,11 +1,13 @@
 
 import styles from 'scss/components/core';
 
-import React, {Component, PropTypes, cloneElement} from 'react';
+import React, {Component, PropTypes, cloneElement, createElement} from 'react';
 import {connect} from 'react-redux';
 import {pushState} from 'redux-router';
 import TransitionGroup from 'react-addons-css-transition-group';
 import {cleanPathName, getLanguageForId} from './utils';
+
+let previousPath = '';
 
 function mapStateToProps(state) {
   const {constants, settings, router} = state;
@@ -20,6 +22,11 @@ function mapStateToProps(state) {
 export default class CoreComponent extends Component {
   static propTypes = {
     children: PropTypes.node
+  }
+
+  componentWillUpdate(nextProps) {
+    // save reference of previous location.pathname
+    previousPath = cleanPathName(this.props.location.pathname);
   }
 
   getRouteComponentProps() {
@@ -42,12 +49,33 @@ export default class CoreComponent extends Component {
     }
   }
 
-  render() {
-
+  renderStaticComponent(component) {
     const {
-      children,
+      settings,
       location
     } = this.props;
+
+    const {id, Component} = component;
+    const defaultProps = {
+      id,
+      previousPath,
+      currentPath: cleanPathName(location.pathname),
+      language: getLanguageForId(id, settings.language)
+    };
+
+    return createElement(Component, {key: id, ...defaultProps});
+  }
+
+  render() {
+    const {
+      children,
+      location,
+      settings
+    } = this.props;
+
+    const {
+      staticComponents
+    } = settings;
 
     return (
       <div className={styles.contentWrapper}>
@@ -59,6 +87,8 @@ export default class CoreComponent extends Component {
           transitionLeaveTimeout={500}>
           {cloneElement(children || <div />, this.getRouteComponentProps())}
         </TransitionGroup>
+        {staticComponents.map(component =>
+          this.renderStaticComponent(component))}
       </div>
     );
   }

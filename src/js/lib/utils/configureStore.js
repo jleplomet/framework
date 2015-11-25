@@ -3,8 +3,7 @@ import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import { reduxReactRouter, routerStateReducer, ReduxRouter } from 'redux-router';
 import thunkMiddleware from 'redux-thunk';
 import loggerMiddleware from 'redux-logger';
-import { devTools } from 'redux-devtools';
-import {createHashHistory, createHistory} from 'history';
+import {createMemoryHistory, createHashHistory, createHistory} from 'history';
 
 function setFinalReducers(reducers) {
   return combineReducers({
@@ -15,16 +14,21 @@ function setFinalReducers(reducers) {
 
 export default function configureStore(reducers, historyType, initialState = {}) {
   const finalReducers = setFinalReducers(reducers);
-  const createHistoryType = historyType === 'HASH_HISTORY' ?
-    createHashHistory : createHistory;
+
+  let createHistoryType = createMemoryHistory;
+
+  if (historyType === 'HASH_HISTORY') {
+    createHistoryType = createHashHistory;
+  } else if (historyType === 'BROWSER_HISTORY') {
+    createHistoryType = createHistory;
+  }
 
   const store = compose(
     applyMiddleware(
       thunkMiddleware,
       loggerMiddleware({level: 'info', collapsed: true})
     ),
-    reduxReactRouter({createHistory: createHistoryType}),
-    // devTools()
+    reduxReactRouter({createHistory: createHistoryType})
   )(createStore)(finalReducers, initialState);
 
   return store;

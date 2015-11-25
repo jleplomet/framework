@@ -1,4 +1,7 @@
 {
+  "menu": {
+    "foo": "bar"
+  },
   "index": {
     "foo": "bar"
   }
