@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+var resolve = require('./webpack/resolve');
 var cdnurl = require('./src/js/cdnurl');
 
 module.exports = {
@@ -64,12 +65,5 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
 
-  resolve: {
-    extensions: ['', '.js', '.css', '.scss'],
-
-    modulesDirectories: [
-      'node_modules',
-      './src'
-    ]
-  }
+  resolve: resolve
 };
