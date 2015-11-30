@@ -5,6 +5,7 @@ import * as defaultReducers from './reducers';
 import {constantsAdd, settingsUpdate} from './actions';
 import configureStore, {updateStoreReducers, getHistory} from './utils/configureStore';
 import loadLanguageFile from './utils/loadLanguageFile';
+import loadAssets from './utils/loadAssets';
 import RootComponent from './RootComponent';
 import CoreComponent from './CoreComponent';
 
@@ -40,17 +41,18 @@ export function bootCore() {
     const {settings} = store.getState();
     const {
       cdnurl,
+      assets,
       languageCode,
       languageFile
     } = settings.toJS();
 
     if (languageFile) {
       coreBootMethods.push(
-        loadLanguageFile.bind(null, cdnurl, languageCode, store.dispatch)
+        loadLanguageFile.bind(null, languageCode, store.dispatch)
       );
     }
 
-    // TODO: LOAD STUFF
+    coreBootMethods.push(loadAssets.bind(null, assets));
 
     coreBootMethods.reduce((sequence, bootMethod) => {
       return sequence.then(() => bootMethod());

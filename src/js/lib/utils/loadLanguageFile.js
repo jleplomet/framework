@@ -5,11 +5,11 @@ import jQuery from '../../plugins/jquery';
 
 const NAMESPACE = '[lib/utils/loadLanguageFile]';
 
-export default function loadLanguageFile(cdnurl, languageCode, dispatch) {
+export default function loadLanguageFile(languageCode, dispatch) {
   console.log(NAMESPACE, 'loadLanguageFile');
 
   return new Promise(resolve => {
-    const url = getDataAsset(`${languageCode}.json`, cdnurl);
+    const url = getDataAsset(`${languageCode}.json`);
 
     jQuery.ajax({
       url

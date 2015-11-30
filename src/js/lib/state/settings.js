@@ -2,13 +2,14 @@
 import {fromJS} from 'immutable';
 
 const settings = {
+  assets: [],
   cdnurl: 'files/',
   languageCode: 'en_us',
   languageFile: false,
   language: {},
-  staticComponents: [],
+  mountSelector: '[data-app]',
   routes: {},
-  mountSelector: '[data-app]'
+  staticComponents: []
 };
 
 export default fromJS(settings);

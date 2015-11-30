@@ -9,7 +9,8 @@ import {
   addConstants,
   updateSettings,
   renderDom
-} from 'js/lib/core';
+} from './lib/core';
+import {getImageAsset} from './lib/utils'
 
 import routes from './routes';
 
@@ -30,9 +31,6 @@ updateSettings({
   cdnurl,
   languageFile: true,
   languageCode: 'en_us',
-  staticComponents: [
-
-  ],
   routes
 });
 
