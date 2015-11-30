@@ -1,6 +1,8 @@
 
 import "scss/main";
 
+import cdnurl from './cdnurl';
+
 import {
   initCore,
   bootCore,
@@ -21,8 +23,11 @@ initCore();
 // });
 
 // update settings
+// we are using webpack to handle our assets and rename them with a cache busting
+// hash, webpack config will automatically append the cdn url to those assets
+// as well. cool.
 updateSettings({
-  cdnurl: '',
+  cdnurl,
   languageFile: true,
   languageCode: 'en_us',
   staticComponents: [

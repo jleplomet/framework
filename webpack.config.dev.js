@@ -3,6 +3,8 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+var cdnurl = require('./src/js/cdnurl');
+
 module.exports = {
   devtool: 'source-map-inline',
 
@@ -14,7 +16,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js',
-    publicPath: '/'
+    publicPath: cdnurl
   },
 
   module: {
@@ -30,6 +32,11 @@ module.exports = {
         test: /\.(scss|css)$/,
         loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]!sass?sourceMap',
         include: path.join(__dirname, 'src')
+      },
+      // IMAGE FILES
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file?name=images/image-[hash:6].[ext]'
       },
       // DATA FILES
       {

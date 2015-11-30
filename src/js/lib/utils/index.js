@@ -1,11 +1,11 @@
 
 const NAMESPACE = '[lib/utils]';
 
-export function getImageAsset(path) {
+export function getImageAsset(path, cdnurl) {
   return require(`../../../images/${path}`);
 }
 
-export function getDataAsset(path) {
+export function getDataAsset(path, cdnurl) {
   return require(`../../../data/${path}`);
 }
 

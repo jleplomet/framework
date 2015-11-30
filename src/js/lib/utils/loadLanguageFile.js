@@ -9,7 +9,7 @@ export default function loadLanguageFile(cdnurl, languageCode, dispatch) {
   console.log(NAMESPACE, 'loadLanguageFile');
 
   return new Promise(resolve => {
-    const url = getDataAsset(`${cdnurl}${languageCode}.json`);
+    const url = getDataAsset(`${languageCode}.json`, cdnurl);
 
     jQuery.ajax({
       url
