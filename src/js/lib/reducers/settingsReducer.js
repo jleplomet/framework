@@ -1,11 +1,10 @@
 
-import constants from '../state/constants';
 import initialState from '../state/settings';
 import createReducer from '../utils/createReducer';
 
-const {
+import {
   SETTINGS_UPDATE
-} = constants.toJS();
+} from '../actions/settingsActions';
 
 const handlers = {
   [SETTINGS_UPDATE](state, action) {

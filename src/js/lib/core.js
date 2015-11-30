@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as defaultReducers from './reducers';
-import {constantsAdd, settingsUpdate} from './actions';
+import {notificationsAdd, settingsUpdate} from './actions';
 import configureStore, {updateStoreReducers, getHistory} from './utils/configureStore';
 import loadLanguageFile from './utils/loadLanguageFile';
 import loadAssets from './utils/loadAssets';
@@ -83,10 +83,10 @@ export function renderDom() {
   });
 }
 
-export function addConstants(constants) {
-  console.log(NAMESPACE, 'addConstants');
+export function addNotifications(constants) {
+  console.log(NAMESPACE, 'addNotifications');
 
-  store.dispatch(constantsAdd(constants));
+  store.dispatch(notificationsAdd(constants));
 }
 
 export function updateSettings(settings) {

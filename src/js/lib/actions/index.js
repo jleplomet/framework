@@ -1,3 +1,3 @@
 
-export {constantsAdd} from './constantsActions';
+export {notificationsAdd} from './notificationsActions';
 export {settingsUpdate} from './settingsActions';

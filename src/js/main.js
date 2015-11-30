@@ -6,7 +6,7 @@ import cdnurl from './cdnurl';
 import {
   initCore,
   bootCore,
-  addConstants,
+  // addNotifications,
   updateSettings,
   renderDom
 } from './lib/core';
@@ -19,7 +19,7 @@ import routes from './routes';
 initCore();
 
 // add constants for custom reducer actions or notifications
-// addConstants({
+// addNotifications({
 
 // });
 

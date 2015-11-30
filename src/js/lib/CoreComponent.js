@@ -10,10 +10,9 @@ import {cleanPathName, getLanguageForId} from './utils';
 let previousPath = '';
 
 function mapStateToProps(state) {
-  const {constants, settings, router} = state;
+  const {notifications, settings, router} = state;
 
   return {
-    constants: constants.toJS(),
     settings: settings.toJS()
   }
 }
@@ -37,7 +36,6 @@ export default class CoreComponent extends Component {
   getRouteComponentProps() {
     const {
       location,
-      constants,
       settings,
       dispatch
     } = this.props;

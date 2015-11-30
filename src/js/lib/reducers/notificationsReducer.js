@@ -1,13 +1,13 @@
 
-import initialState from '../state/constants';
 import createReducer from '../utils/createReducer';
+import initialState from '../state/notifications';
 
-const {
-  CONSTANTS_ADD
-} = initialState.toJS();
+import {
+  NOTIFICATION_ADD
+} from '../actions/notificationsActions';
 
 const handlers = {
-  [CONSTANTS_ADD](state, action) {
+  [NOTIFICATION_ADD](state, action) {
     return state.merge(action.data);
   }
 };

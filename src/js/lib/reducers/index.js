@@ -1,3 +1,3 @@
 
-export constants from './constantsReducer';
+export notifications from './notificationsReducer';
 export settings from './settingsReducer';

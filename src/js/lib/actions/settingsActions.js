@@ -1,9 +1,5 @@
 
-import constants from '../state/constants';
-
-const {
-  SETTINGS_UPDATE
-} = constants.toJS();
+export const SETTINGS_UPDATE = 'SETTINGS_UPDATE';
 
 export function settingsUpdate(data) {
   return {
