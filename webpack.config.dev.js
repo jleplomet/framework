@@ -31,8 +31,13 @@ module.exports = {
       // CSS FILES
       {
         test: /\.(scss|css)$/,
-        loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]!sass?sourceMap',
+        loader: 'style!css?modules&importLoaders=2!autoprefixer?browsers=last 2 versions!sass?sourceMap',
         include: path.join(__dirname, 'src')
+      },
+      // FONT FILES
+      {
+        test: /\.(woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)$/,
+        loader: 'url?prefix=font/&limit=100000'
       },
       // IMAGE FILES
       {
@@ -46,11 +51,6 @@ module.exports = {
       }
     ]
   },
-
-  postcss: [
-    require('precss'),
-    require('autoprefixer')
-  ],
 
   plugins: [
     new ExtractTextPlugin('main.css', {allChunks: true}),

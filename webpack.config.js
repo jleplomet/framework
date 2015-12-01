@@ -49,7 +49,7 @@ module.exports = {
       // CSS FILES
       {
         test: /\.(scss|css)$/,
-        loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[hash:base64:6]!sass?sourceMap'),
+        loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2!autoprefixer?browsers=last 2 versions!sass'),
         include: path.join(__dirname, 'src')
       },
       // IMAGE FILES
