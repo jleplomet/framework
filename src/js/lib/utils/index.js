@@ -13,8 +13,15 @@ export function getSoundAsset(path) {
   return require(`./../../../sounds/${path}`);
 }
 
-export function cleanPathName(pathname) {
-  return pathname.split('/')[1] || 'index';
+export function cleanPathName(pathname, defaultPathName = 'index') {
+  const cleaned = pathname.split('/')[1];
+
+  if (cleaned === undefined || cleaned === false) {
+    // we dont have a "/", just return the pathname
+    return pathname;
+  }
+
+  return cleaned || defaultPathName;
 }
 
 export function getLanguageForId(id, language) {

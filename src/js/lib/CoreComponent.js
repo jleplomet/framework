@@ -48,7 +48,7 @@ export default class CoreComponent extends Component {
       key: componentId,
       id: componentId,
       location: {
-        pathname: cleanPathName(location.pathname),
+        pathname: componentId,
         params: location.query
       },
       language: getLanguageForId(componentId, settings.language),
