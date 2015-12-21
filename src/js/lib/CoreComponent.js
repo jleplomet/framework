@@ -87,6 +87,9 @@ export default class CoreComponent extends Component {
     } = this.props;
 
     const {
+      transitionName,
+      transitionEnterTimeout,
+      transitionLeaveTimeout,
       staticComponents
     } = settings;
 
@@ -95,9 +98,9 @@ export default class CoreComponent extends Component {
         <TransitionGroup
           component='div'
           className={styles.contentContainer}
-          transitionName="swap"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}>
+          transitionName={transitionName}
+          transitionEnterTimeout={transitionEnterTimeout}
+          transitionLeaveTimeout={transitionLeaveTimeout}>
           {cloneElement(children || <div />, this.getRouteComponentProps())}
         </TransitionGroup>
         {staticComponents.map(component =>

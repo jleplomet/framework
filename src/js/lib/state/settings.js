@@ -9,6 +9,9 @@ const settings = {
   language: {},
   mountSelector: '[data-app]',
   routes: {},
+  transitionName: 'swap',
+  transitionEnterTimeout: 500,
+  transitionLeaveTimeout: 500,
   staticComponents: []
 };
 
