@@ -8,7 +8,7 @@ export default class Index extends Component {
   render() {
     return (
       <div className={styles.contentHome}>
-        HELLO Index
+        Hello Framework
       </div>
     )
   }

@@ -25,7 +25,14 @@ module.exports = {
       // JS FILES
       {
         test: /\.js$/,
-        loaders: ['babel'],
+        loader: 'babel',
+        query: {
+          cacheDirectory: true,
+          presets: ['es2015', 'stage-0', 'react'],
+          plugins: [
+            "transform-decorators-legacy"
+          ]
+        },
         include: path.join(__dirname, 'src')
       },
       // CSS FILES

@@ -19,6 +19,8 @@ function mapStateToProps(state) {
 
 @connect(state => mapStateToProps(state))
 export default class CoreComponent extends Component {
+  static displayName = 'CoreComponent';
+
   static propTypes = {
     children: PropTypes.node
   }
