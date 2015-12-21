@@ -2,11 +2,15 @@
 const NAMESPACE = '[lib/utils]';
 
 export function getImageAsset(path) {
-  return require(`../../../images/${path}`);
+  return require(`./../../../images/${path}`);
 }
 
 export function getDataAsset(path) {
-  return require(`../../../data/${path}`);
+  return require(`./../../../data/${path}`);
+}
+
+export function getSoundAsset(path) {
+  return require(`./../../../sounds/${path}`);
 }
 
 export function cleanPathName(pathname) {
