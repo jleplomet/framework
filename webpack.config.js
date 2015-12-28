@@ -13,10 +13,11 @@ module.exports = {
 
   entry: {
     main: './src/js/main',
+
     vendor: [
+      './src/js/plugins/jquery',
       'history',
       'immutable',
-      './src/js/plugins/jquery',
       'react',
       'react-addons-css-transition-group',
       'react-addons-transition-group',
@@ -43,7 +44,15 @@ module.exports = {
       // JS FILES
       {
         test: /\.js$/,
-        loaders: ['babel'],
+        loader: 'babel',
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015', 'stage-0', 'react'],
+          plugins: [
+            "transform-runtime",
+            "transform-decorators-legacy",
+          ]
+        },
         include: path.join(__dirname, 'src')
       },
       // CSS FILES
@@ -56,6 +65,11 @@ module.exports = {
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file?name=images/image-[hash:6].[ext]'
+      },
+      // SOUND FILES
+      {
+        test: /\.(mp3|ogg)$/,
+        loader: 'file?name=sounds/[name].[ext]'
       },
       // DATA FILES
       {

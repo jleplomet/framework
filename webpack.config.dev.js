@@ -26,6 +26,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel',
+        exclude: /node_modules/,
         query: {
           cacheDirectory: true,
           presets: ['es2015', 'stage-0', 'react'],
@@ -50,6 +51,11 @@ module.exports = {
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file?name=images/image-[hash:6].[ext]'
+      },
+      // SOUND FILES
+      {
+        test: /\.(mp3|ogg)$/,
+        loader: 'file?name=sounds/[name].[ext]'
       },
       // DATA FILES
       {
