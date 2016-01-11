@@ -23,7 +23,7 @@ export default class CoreComponent extends Component {
 
   static propTypes = {
     children: PropTypes.node
-  }
+  };
 
   componentWillUpdate(nextProps) {
     // save reference of previous location.pathname

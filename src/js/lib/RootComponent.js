@@ -7,7 +7,7 @@ export default class RootComponent extends Component {
   static propTypes = {
     store: PropTypes.object.isRequired,
     routes: PropTypes.object.isRequired
-  }
+  };
 
   createElement(Component, props) {
     // this is super hacky and maybe will break later on.
