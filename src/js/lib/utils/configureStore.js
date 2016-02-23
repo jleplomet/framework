@@ -1,17 +1,19 @@
 
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
-import {syncReduxAndRouter, routeReducer} from 'redux-simple-router';
+import {browserHistory, hashHistory, createMemoryHistory} from 'react-router';
+// import {syncReduxAndRouter, routeReducer} from 'redux-simple-router';
+import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
 import loggerMiddleware from 'redux-logger';
-import {createMemoryHistory, createHashHistory, createHistory} from 'history';
+// import {createMemoryHistory, createHashHistory, createHistory} from 'history';
 
 let _createHistoryType = false;
 
 function setFinalReducers(reducers) {
   return combineReducers({
     ...reducers,
-    routing: routeReducer
-  })
+    routing: routerReducer
+  });
 }
 
 export default function configureStore(reducers, historyType, initialState = {}) {
@@ -20,12 +22,14 @@ export default function configureStore(reducers, historyType, initialState = {})
   _createHistoryType = createMemoryHistory;
 
   if (historyType === 'HASH_HISTORY') {
-    _createHistoryType = createHashHistory;
+    _createHistoryType = hashHistory;
   } else if (historyType === 'BROWSER_HISTORY') {
-    _createHistoryType = createHistory;
+    _createHistoryType = browserHistory;
   }
 
-  _createHistoryType = _createHistoryType();
+  console.log(_createHistoryType);
+
+  // _createHistoryType = _createHistoryType();
 
   const store = compose(
     applyMiddleware(
@@ -33,8 +37,6 @@ export default function configureStore(reducers, historyType, initialState = {})
       loggerMiddleware({level: 'info', collapsed: true})
     )
   )(createStore)(finalReducers, initialState);
-
-  syncReduxAndRouter(_createHistoryType, store);
 
   return store;
 }

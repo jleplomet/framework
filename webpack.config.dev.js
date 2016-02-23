@@ -39,7 +39,7 @@ module.exports = {
       // CSS FILES
       {
         test: /\.(scss|css)$/,
-        loader: 'style!css?modules&importLoaders=2&localIdentName=[name]__[local]&sourceMap!autoprefixer?browsers=last 2 versions!sass?sourceMap',
+        loader: 'style!css?modules&importLoaders=2&localIdentName=[name]__[local]&sourceMap!sass?sourceMap',
         include: path.join(__dirname, 'src')
       },
       // FONT FILES

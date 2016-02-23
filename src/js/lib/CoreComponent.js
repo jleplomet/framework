@@ -3,7 +3,7 @@ import styles from 'scss/components/core';
 
 import React, {Component, PropTypes, cloneElement, createElement} from 'react';
 import {connect} from 'react-redux';
-import {updatePath} from 'redux-simple-router';
+import {push} from 'react-router-redux';
 import TransitionGroup from 'react-addons-css-transition-group';
 import {cleanPathName, getLanguageForId} from './utils';
 
@@ -53,7 +53,7 @@ export default class CoreComponent extends Component {
       },
       language: getLanguageForId(componentId, settings.language),
       navigate(path) {
-        return dispatch(updatePath(path));
+        return dispatch(push(path));
       }
     }
   }
@@ -72,7 +72,7 @@ export default class CoreComponent extends Component {
       currentPath: cleanPathName(location.pathname),
       language: getLanguageForId(id, settings.language),
       navigate(path) {
-        return dispatch(updatePath(path));
+        return dispatch(push(path));
       }
     };
 
