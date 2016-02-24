@@ -3,11 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as defaultReducers from './reducers';
 import {notificationsAdd, settingsUpdate} from './actions';
-import configureStore, {updateStoreReducers, getHistory} from './utils/configureStore';
+import {configureStore, updateStoreReducers, getHistory} from './utils/configureStore';
 import loadLanguageFile from './utils/loadLanguageFile';
 import loadAssets from './utils/loadAssets';
-import RootComponent from './RootComponent';
-import CoreComponent from './CoreComponent';
+import RootComponent from './containers/RootComponent';
+import CoreComponent from './containers/CoreComponent';
 
 const NAMESPACE = '[lib/core]';
 

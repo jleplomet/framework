@@ -1,13 +1,11 @@
 
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import {browserHistory, hashHistory, createMemoryHistory} from 'react-router';
-// import {syncReduxAndRouter, routeReducer} from 'redux-simple-router';
-import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
-import thunkMiddleware from 'redux-thunk';
-import loggerMiddleware from 'redux-logger';
-// import {createMemoryHistory, createHashHistory, createHistory} from 'history';
+import {syncHistoryWithStore, routerMiddleware, routerReducer} from 'react-router-redux';
+import storeEnhancer from './storeEnhancer';
 
-let _createHistoryType = false;
+let _historyType = false;
+let _store = false;
 
 function setFinalReducers(reducers) {
   return combineReducers({
@@ -16,34 +14,32 @@ function setFinalReducers(reducers) {
   });
 }
 
-export default function configureStore(reducers, historyType, initialState = {}) {
+export function configureStore(reducers, historyType, initialState = {}) {
   const finalReducers = setFinalReducers(reducers);
 
-  _createHistoryType = createMemoryHistory;
+  _historyType = createMemoryHistory();
 
   if (historyType === 'HASH_HISTORY') {
-    _createHistoryType = hashHistory;
+    _historyType = hashHistory;
   } else if (historyType === 'BROWSER_HISTORY') {
-    _createHistoryType = browserHistory;
+    _historyType = browserHistory;
   }
 
-  console.log(_createHistoryType);
+  _store = createStore(
+    finalReducers,
+    initialState,
+    storeEnhancer()
+  );
 
-  // _createHistoryType = _createHistoryType();
+  _historyType = syncHistoryWithStore(_historyType, _store);
 
-  const store = compose(
-    applyMiddleware(
-      thunkMiddleware,
-      loggerMiddleware({level: 'info', collapsed: true})
-    )
-  )(createStore)(finalReducers, initialState);
-
-  return store;
+  return _store;
 }
 
-
 export function getHistory() {
-  return _createHistoryType;
+  console.log(_historyType);
+
+  return _historyType;
 }
 
 export function updateStoreReducers(store, reducers) {

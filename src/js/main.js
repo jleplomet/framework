@@ -8,8 +8,7 @@ import {
   bootCore,
   // addNotifications,
   updateSettings,
-  renderDom,
-  HASH_HISTORY
+  renderDom
 } from './lib/core';
 import {getImageAsset} from './lib/utils'
 
@@ -17,7 +16,7 @@ import routes from './routes';
 
 // initialize lib/core and set which history type to create the store with
 // default is createHashHistory
-initCore(HASH_HISTORY); 
+initCore();
 
 // add constants for custom reducer actions or notifications
 // addNotifications({

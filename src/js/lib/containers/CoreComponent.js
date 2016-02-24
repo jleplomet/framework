@@ -3,9 +3,9 @@ import styles from 'scss/components/core';
 
 import React, {Component, PropTypes, cloneElement, createElement} from 'react';
 import {connect} from 'react-redux';
-import {push} from 'react-router-redux';
+import {push, goBack, goForward} from 'react-router-redux';
 import TransitionGroup from 'react-addons-css-transition-group';
-import {cleanPathName, getLanguageForId} from './utils';
+import {cleanPathName, getLanguageForId} from '../utils';
 
 let previousPath = '';
 
@@ -52,8 +52,14 @@ export default class CoreComponent extends Component {
         params: location.query
       },
       language: getLanguageForId(componentId, settings.language),
+      goBack() {
+        return dispatch(goBack());
+      },
       navigate(path) {
         return dispatch(push(path));
+      },
+      goForward() {
+        return dispatch(goForward());
       }
     }
   }

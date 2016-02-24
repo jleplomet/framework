@@ -2,7 +2,7 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 
-import CoreComponent from 'js/lib/CoreComponent';
+import CoreComponent from 'js/lib/containers/CoreComponent';
 
 import Index from 'js/components/Index';
 
