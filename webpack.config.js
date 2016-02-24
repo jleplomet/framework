@@ -18,15 +18,15 @@ module.exports = {
       './src/js/plugins/jquery',
       'history',
       'immutable',
+      'lodash',
       'react',
       'react-addons-css-transition-group',
       'react-addons-transition-group',
       'react-dom',
       'react-redux',
       'react-router',
+      'react-router-redux',
       'redux',
-      'redux-logger',
-      'redux-simple-router',
       'redux-thunk'
     ]
   },
@@ -58,7 +58,7 @@ module.exports = {
       // CSS FILES
       {
         test: /\.(scss|css)$/,
-        loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&localIdentName=[hash:base64:6]!autoprefixer?browsers=last 2 versions!sass'),
+        loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&localIdentName=[hash:base64:6]!sass'),
         include: path.join(__dirname, 'src')
       },
       // IMAGE FILES

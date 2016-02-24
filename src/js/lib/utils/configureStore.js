@@ -37,8 +37,6 @@ export function configureStore(reducers, historyType, initialState = {}) {
 }
 
 export function getHistory() {
-  console.log(_historyType);
-
   return _historyType;
 }
 
