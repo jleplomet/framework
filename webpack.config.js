@@ -58,7 +58,7 @@ module.exports = {
       // CSS FILES
       {
         test: /\.(scss|css)$/,
-        loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&localIdentName=[hash:base64:6]!sass'),
+        loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&localIdentName=[hash:base64:6]!postcss!sass'),
         include: path.join(__dirname, 'src')
       },
       // IMAGE FILES
@@ -78,6 +78,10 @@ module.exports = {
       }
     ]
   },
+
+  postcss: [
+    autoprefixer({ browsers: ['last 2 versions'] })
+  ],
 
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),

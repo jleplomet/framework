@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-
+var autoprefixer = require('autoprefixer');
 var resolve = require('./webpack/resolve');
 var cdnurl = require('./src/js/cdnurl');
 
@@ -39,7 +39,7 @@ module.exports = {
       // CSS FILES
       {
         test: /\.(scss|css)$/,
-        loader: 'style!css?modules&importLoaders=2&localIdentName=[name]__[local]&sourceMap!sass?sourceMap',
+        loader: 'style!css?modules&importLoaders=2&localIdentName=[name]__[local]&sourceMap!postcss?sourceMap!sass?sourceMap',
         include: path.join(__dirname, 'src')
       },
       // FONT FILES
@@ -64,6 +64,10 @@ module.exports = {
       }
     ]
   },
+
+  postcss: [
+    autoprefixer({ browsers: ['last 2 versions'] })
+  ],
 
   plugins: [
     new ExtractTextPlugin('main.css', {allChunks: true}),
