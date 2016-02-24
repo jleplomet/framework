@@ -1,9 +1,21 @@
 
-const NAMESPACE = '[lib/utils/loadAssets]';
+const NAMESPACE = '[lib/utils/assets]';
 
-export default function loadAssets(assets) {
+export function getImageAsset(path) {
+  return require(`./../../../images/${path}`);
+}
+
+export function getDataAsset(path) {
+  return require(`./../../../data/${path}`);
+}
+
+export function getSoundAsset(path) {
+  return require(`./../../../sounds/${path}`);
+}
+
+export function loadAssets(assets) {
   console.log(NAMESPACE, 'loadAssets');
-
+  
   return new Promise(resolve => {
     if (!assets.length) {
       return resolve();

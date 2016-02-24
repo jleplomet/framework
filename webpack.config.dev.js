@@ -30,9 +30,7 @@ module.exports = {
         query: {
           cacheDirectory: true,
           presets: ['es2015', 'stage-0', 'react'],
-          plugins: [
-            "transform-decorators-legacy"
-          ]
+          plugins: []
         },
         include: path.join(__dirname, 'src')
       },

@@ -10,9 +10,13 @@ import {
   updateSettings,
   renderDom
 } from './lib/core';
-import {getImageAsset} from './lib/utils'
+// import {getImageAsset} from './lib/utils/assets';
 
 import routes from './routes';
+
+import * as device from 'js/lib/utils/device';
+
+console.log(device)
 
 // initialize lib/core and set which history type to create the store with
 // default is createHashHistory

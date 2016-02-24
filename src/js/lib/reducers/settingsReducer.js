@@ -1,6 +1,6 @@
 
 import initialState from '../state/settings';
-import createReducer from '../utils/createReducer';
+import createReducer from './createReducer';
 
 import {
   SETTINGS_UPDATE

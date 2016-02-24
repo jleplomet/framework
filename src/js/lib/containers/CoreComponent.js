@@ -5,20 +5,11 @@ import React, {Component, PropTypes, cloneElement, createElement} from 'react';
 import {connect} from 'react-redux';
 import {push, goBack, goForward} from 'react-router-redux';
 import TransitionGroup from 'react-addons-css-transition-group';
-import {cleanPathName, getLanguageForId} from '../utils';
+import {getLanguageForId} from '../utils/language';
 
 let previousPath = '';
 
-function mapStateToProps(state) {
-  const {notifications, settings, router} = state;
-
-  return {
-    settings: settings.toJS()
-  }
-}
-
-@connect(state => mapStateToProps(state))
-export default class CoreComponent extends Component {
+class CoreComponent extends Component {
   static displayName = 'CoreComponent';
 
   static propTypes = {
@@ -114,4 +105,25 @@ export default class CoreComponent extends Component {
       </div>
     );
   }
+}
+
+export default connect(mapStateToProps)(CoreComponent);
+
+function mapStateToProps(state) {
+  const {notifications, settings, router} = state;
+
+  return {
+    settings: settings.toJS()
+  }
+}
+
+function cleanPathName(pathname, defaultPathName = 'index') {
+  const cleaned = pathname.split('/')[1];
+
+  if (cleaned === undefined || cleaned === false) {
+    // we dont have a "/", just return the pathname
+    return pathname;
+  }
+
+  return cleaned || defaultPathName;
 }
