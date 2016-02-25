@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as defaultReducers from './reducers';
-import {notificationsAdd, settingsUpdate} from './actions';
+import {settingsUpdate} from './actions';
 import {configureStore, updateStoreReducers, getHistory} from './store/configureStore';
 import {loadLanguageFile} from './utils/language';
 import {loadAssets} from './utils/assets';
@@ -15,16 +15,43 @@ let store = false;
 let coreBootMethods = [];
 let reducersAdded = false;
 
+/**
+ * Default history type. Routing does not persist state across sessions.
+ *
+ * @type {string}
+ */
 export const MEMORY_HISTORY  = 'MEMORY_HISTORY';
+/**
+ * Routing with hashtag support.
+ *
+ * @type {string}
+ */
 export const HASH_HISTORY    = 'HASH_HISTORY';
+/**
+ * Routing with HTML5 History API support.
+ *
+ * @type {string}
+ */
 export const BROWSER_HISTORY = 'BROWSER_HISTORY';
 
+/**
+ * Starting point for App. Creates initial Store and sets History method for
+ * routing.
+ *
+ * @param  {string} historyType MEMORY_HISTORY | HASH_HISTORY | BROWSER_HISTORY
+ */
 export function initCore(historyType = MEMORY_HISTORY) {
   console.log(NAMESPACE, 'initCore', historyType);
 
   store = configureStore(defaultReducers, historyType);
 }
 
+/**
+ * Boots up framework and updates store with custom reducers if added.
+ * Loads language file if enabled, loads assets if specified.
+ *
+ * @return {Promise}
+ */
 export function bootCore() {
   console.log(NAMESPACE, 'bootCore');
 
@@ -62,6 +89,12 @@ export function bootCore() {
   });
 }
 
+/**
+ * Render React Components and Begin Routing. We are done with core.js now.
+ * The app is now in the hands of the React Components defined as routes.
+ *
+ * @return {Promise}
+ */
 export function renderDom() {
   console.log(NAMESPACE, 'renderDom');
 
@@ -81,12 +114,6 @@ export function renderDom() {
       resolve
     );
   });
-}
-
-export function addNotifications(constants) {
-  console.log(NAMESPACE, 'addNotifications');
-
-  store.dispatch(notificationsAdd(constants));
 }
 
 export function updateSettings(settings) {
