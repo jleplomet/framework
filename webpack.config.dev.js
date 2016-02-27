@@ -2,7 +2,11 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var precss = require('precss');
 var autoprefixer = require('autoprefixer');
+var postcssImport = require('postcss-import');
+var postcssMixins = require('postcss-mixins');
+var postcssAdvancedVariables = require('postcss-advanced-variables');
 var resolve = require('./webpack/resolve');
 var cdnurl = require('./src/js/cdnurl');
 
@@ -37,9 +41,13 @@ module.exports = {
       // CSS FILES
       {
         test: /\.(scss|css)$/,
-        loader: 'style!css?modules&importLoaders=2&localIdentName=[name]__[local]&sourceMap!postcss?sourceMap!sass?sourceMap',
-        include: path.join(__dirname, 'src')
+        loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]&sourceMap!postcss'
       },
+      // {
+      //   test: /\.(scss|css)$/,
+      //   loader: 'style!css?modules&importLoaders=2&localIdentName=[name]__[local]&sourceMap!postcss?sourceMap!sass?sourceMap',
+      //   include: path.join(__dirname, 'src')
+      // },
       // FONT FILES
       {
         test: /\.(woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)$/,
@@ -63,9 +71,20 @@ module.exports = {
     ]
   },
 
-  postcss: [
-    autoprefixer({ browsers: ['last 2 versions'] })
-  ],
+  postcss: function(webpack) {
+    return [
+      postcssImport({addDependencyTo: webpack}),
+      postcssMixins(),
+      postcssAdvancedVariables(),
+      autoprefixer({ browsers: ['last 2 versions'] }),
+      precss()
+    ]
+  },
+
+  // postcss: [
+  //   autoprefixer({ browsers: ['last 2 versions'] }),
+  //   precss()
+  // ],
 
   plugins: [
     new ExtractTextPlugin('main.css', {allChunks: true}),

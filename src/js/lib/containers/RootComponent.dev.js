@@ -31,13 +31,13 @@ export default class RootComponent extends Component {
 
     return (
       <Provider store={store}>
-        <div>
+        <span>
           <Router
             history={history}
             routes={routes}
             createElement={this.createElement.bind(this)} />
           <DevTools />
-        </div>
+        </span>
       </Provider>
     );
   }

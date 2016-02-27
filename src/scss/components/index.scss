@@ -1,12 +1,11 @@
 
-@import "../mixins.scss";
+@import "../variables";
+@import "../mixins";
 
 /* components/index */
 
 .contentHome {
-  @include position-absolute-element(100%, 100%);
+  @mixin position-absolute 100%, 100%;
 
-  padding: 10px;
-
-  color: red;
+  color: color(var(--red));
 }

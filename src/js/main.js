@@ -1,5 +1,5 @@
 
-import "scss/main";
+import "scss/main"; 
 
 import cdnurl from './cdnurl';
 

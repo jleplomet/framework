@@ -4,7 +4,11 @@ var webpack = require('webpack');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-
+var precss = require('precss');
+var autoprefixer = require('autoprefixer');
+var postcssImport = require('postcss-import');
+var postcssMixins = require('postcss-mixins');
+var postcssAdvancedVariables = require('postcss-advanced-variables');
 var resolve = require('./webpack/resolve');
 var cdnurl = require('./src/js/cdnurl.production');
 
@@ -49,7 +53,7 @@ module.exports = {
         query: {
           presets: ['es2015', 'stage-1', 'react'],
           plugins: [
-            "transform-runtime"
+            // "transform-runtime"
           ]
         },
         include: path.join(__dirname, 'src')
@@ -57,9 +61,14 @@ module.exports = {
       // CSS FILES
       {
         test: /\.(scss|css)$/,
-        loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&localIdentName=[hash:base64:6]!postcss!sass'),
+        loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[hash:base64:8]!postcss'),
         include: path.join(__dirname, 'src')
       },
+      // {
+      //   test: /\.(scss|css)$/,
+      //   loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&localIdentName=[hash:base64:6]!postcss!sass'),
+      //   include: path.join(__dirname, 'src')
+      // },
       // IMAGE FILES
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -78,9 +87,15 @@ module.exports = {
     ]
   },
 
-  postcss: [
-    autoprefixer({ browsers: ['last 2 versions'] })
-  ],
+  postcss: function(webpack) {
+    return [
+      postcssImport({addDependencyTo: webpack}),
+      postcssMixins(),
+      postcssAdvancedVariables(),
+      autoprefixer({ browsers: ['last 2 versions'] }),
+      precss()
+    ]
+  },
 
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
