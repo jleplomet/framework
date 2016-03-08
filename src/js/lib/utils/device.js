@@ -63,6 +63,12 @@ export const touch = BROWSER.features.touch;
  */
 export const serviceWorker = BROWSER.features.serviceWorker;
 
+/**
+ * Determine if current browser supports Web Workers
+ * @type {bool}
+ */
+export const webWorker = BROWSER.features.worker;
+
 function browser() {
   BROWSER = {
     chrome:  searchUA('chrome'),
@@ -77,6 +83,7 @@ function browser() {
          location.hostname === 'localhost' ||
          location.hostname.indexOf('127.') === 0),
       touch: 'ontouchstart' in window,
+      webWorker: !!(window.Worker),
       video: (() => {
         let videoElement = document.createElement('video');
 
