@@ -1,5 +1,5 @@
 
-import "scss/main"; 
+import "scss/main";
 
 import cdnurl from './cdnurl';
 
@@ -9,13 +9,10 @@ import {
   updateSettings,
   renderDom
 } from 'js/lib/core';
-// import {getImageAsset} from './lib/utils/assets';
 
 import routes from './routes';
 
 import * as device from 'js/lib/utils/device';
-
-console.log(device)
 
 // initialize lib/core and set which history type to create the store with
 // default is MEMORY_HISTORY

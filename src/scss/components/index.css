@@ -8,4 +8,12 @@
   @mixin position-absolute 100%, 100%;
 
   color: color(var(--red));
+
+  border: 1px solid green;
+}
+
+.contentContainer {
+  @mixin position-relative 100%, 100%;
+
+  border: 1px dashed green;
 }

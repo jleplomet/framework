@@ -8,7 +8,9 @@ export default class Index extends Component {
   render() {
     return (
       <div className={styles.contentHome}>
-        Hello Framework, and Jeff!
+        <div className={styles.contentContainer}>
+          Hello Framework, and World!
+        </div>
       </div>
     )
   }
