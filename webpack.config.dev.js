@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var precss = require('precss');
 var autoprefixer = require('autoprefixer');
 var postcssImport = require('postcss-import');
@@ -11,7 +12,7 @@ var resolve = require('./webpack/resolve');
 var cdnurl = require('./src/js/cdnurl');
 
 module.exports = {
-  devtool: 'source-map-inline',
+  devtool: 'cheap-module-eval-source-map, //#',
 
   entry: [
     'webpack-hot-middleware/client?reload=true',
@@ -29,14 +30,9 @@ module.exports = {
       // JS FILES
       {
         test: /\.js$/,
-        loader: 'babel',
-        exclude: /node_modules/,
-        query: {
-          cacheDirectory: true,
-          presets: ['es2015', 'stage-1', 'react'],
-          plugins: []
-        },
-        include: path.join(__dirname, 'src')
+        loaders: ['react-hot', 'babel'],
+        include: path.join(__dirname, 'src'),
+        exclude: /node_modules/
       },
       // CSS FILES
       {
@@ -87,16 +83,18 @@ module.exports = {
   // ],
 
   plugins: [
-    new ExtractTextPlugin('main.css', {allChunks: true}),
-
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
 
     new HtmlWebpackPlugin({
       template: 'src/layout/index.html',
       inject: 'body'
     }),
 
-    new webpack.NoErrorsPlugin()
+    new CopyWebpackPlugin([
+      {from: 'src/js/worker.js'}
+    ])
   ],
 
   resolve: resolve

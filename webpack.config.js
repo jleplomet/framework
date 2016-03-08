@@ -10,7 +10,7 @@ var postcssImport = require('postcss-import');
 var postcssMixins = require('postcss-mixins');
 var postcssAdvancedVariables = require('postcss-advanced-variables');
 var resolve = require('./webpack/resolve');
-var cdnurl = require('./src/js/cdnurl.production');
+var cdnurl = require('./src/js/cdnurl');
 
 module.exports = {
   debug: false,
