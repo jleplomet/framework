@@ -1,15 +1,29 @@
 
 function receiveMessage(event) {
-  var action = event.data.action;
-  var payload = event.data.payload;
+  console.log(event.data);
+
+  var data         = event.data;
+  var action       = data.action;
+  var transferable = data.transferable;
+  var payload      = !transferable ? data.payload : data;
+  var method       = payload.method;
 
   switch (action) {
     case 'extend':
       Object.assign(self, _parse(payload.methods));
       break;
     case 'execute':
-      if (self.hasOwnProperty(payload.method)) {
-        self[payload.method].apply(null, payload.args);
+      if (self.hasOwnProperty(method)) {
+        self[method].apply(null, payload.args);
+      }
+      break;
+    case 'executeTransferable':
+      delete data.action;
+      delete data.method;
+      delete data.transferable;
+
+      if (self.hasOwnProperty(method)) {
+        self[method].apply(null, convertObjToArray(payload));
       }
       break;
   }
@@ -19,7 +33,18 @@ function emit(type, payload) {
   self.postMessage({type: type, payload: payload});
 }
 
+function emitTransferable(type, payload, transferable) {
+  self.postMessage(
+    Object.assign({type: type, transferable: true}, payload),
+    transferable
+  );
+}
+
 self.addEventListener('message', receiveMessage);
+
+function convertObjToArray(obj) {
+  return Object.keys(obj).map(function(k) {return obj[k];});
+}
 
 function _parse(str, date2obj) {
   var iso8061 = date2obj ? /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)Z$/ : false;

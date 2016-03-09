@@ -42,7 +42,7 @@ export default class Thread {
    */
   extend(...methods) {
     methods.forEach(method =>
-      this.send('extend', {methods: _stringify(method)}));
+      this._send('extend', {methods: _stringify(method)}));
   }
 
   /**
@@ -53,7 +53,23 @@ export default class Thread {
    * @return {void}
    */
   execute(method, ...args) {
-    this.send('execute', {method, args});
+    this._send('execute', {method, args});
+  }
+
+  /**
+   * Execute function to send large data structures with the Web Worker
+   * Transferable option.
+   *
+   * @param  {string} method       The function name to execute
+   * @param  {[type]} payload      Data to send over
+   * @param  {[type]} transferable Transferable data to send over
+   */
+  executeTransferable(method, payload, transferable) {
+    this._sendTransferable(
+      'executeTransferable',
+      {method, ...payload},
+      transferable
+    );
   }
 
   /**
@@ -82,13 +98,28 @@ export default class Thread {
    * @param  {string} action Type of task Web Worker should handle
    * @param  {[type]} payload Data if any.
    */
-  send(action, payload) {
+  _send(action, payload) {
     this._worker.postMessage({action, payload})
   }
 
+  _sendTransferable(action, payload, transferable) {
+    this._worker.postMessage(
+      {action, transferable: true, ...payload},
+      transferable
+    );
+  }
+
   _onMessage(event) {
-    const type = event.data.type;
-    const payload = event.data.payload;
+    const data         = event.data;
+    const type         = data.type;
+    const transferable = data.hasOwnProperty('transferable');
+    const payload      = !transferable ? data.payload : data;
+
+    if (transferable) {
+      // remove type and transferable from returned payload, avoid clutter.
+      delete payload.type;
+      delete payload.transferable;
+    }
 
     if (this._callbacks.hasOwnProperty(type)) {
       this._callbacks[type](payload);
