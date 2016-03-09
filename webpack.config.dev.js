@@ -30,7 +30,7 @@ module.exports = {
       // JS FILES
       {
         test: /\.js$/,
-        loaders: ['react-hot', 'babel'],
+        loaders: ['babel'],
         include: path.join(__dirname, 'src'),
         exclude: /node_modules/
       },
@@ -39,11 +39,6 @@ module.exports = {
         test: /\.(scss|css)$/,
         loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]&sourceMap!postcss'
       },
-      // {
-      //   test: /\.(scss|css)$/,
-      //   loader: 'style!css?modules&importLoaders=2&localIdentName=[name]__[local]&sourceMap!postcss?sourceMap!sass?sourceMap',
-      //   include: path.join(__dirname, 'src')
-      // },
       // FONT FILES
       {
         test: /\.(woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)$/,
@@ -76,11 +71,6 @@ module.exports = {
       precss()
     ]
   },
-
-  // postcss: [
-  //   autoprefixer({ browsers: ['last 2 versions'] }),
-  //   precss()
-  // ],
 
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
