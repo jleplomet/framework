@@ -1,7 +1,5 @@
 
 function receiveMessage(event) {
-  console.log(event.data);
-
   var data         = event.data;
   var action       = data.action;
   var transferable = data.transferable;
