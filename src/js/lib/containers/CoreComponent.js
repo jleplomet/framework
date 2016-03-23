@@ -16,6 +16,22 @@ class CoreComponent extends Component {
     children: PropTypes.node
   };
 
+  static childContextTypes = {
+    dispatch: PropTypes.func
+  };
+
+  // In order to limit the amount of props to pass down
+  // we will define the most commonly passed/used props as childContextTypes
+  // so any child that needs it, can get it on its own. this limits boilerplate
+  // to handle these props
+  getChildContext() {
+    const {dispatch} = this.props;
+
+    return {
+      dispatch
+    };
+  }
+
   componentWillUpdate(nextProps) {
     // save reference of previous location.pathname
     const nextPathname = cleanPathName(nextProps.location.pathname);
@@ -42,16 +58,7 @@ class CoreComponent extends Component {
         pathname: componentId,
         params: location.query
       },
-      language: getLanguageForId(componentId, settings.language),
-      goBack() {
-        return dispatch(goBack());
-      },
-      navigate(path) {
-        return dispatch(push(path));
-      },
-      goForward() {
-        return dispatch(goForward());
-      }
+      language: getLanguageForId(componentId, settings.language)
     }
   }
 
@@ -67,10 +74,7 @@ class CoreComponent extends Component {
       id,
       previousPath,
       currentPath: cleanPathName(location.pathname),
-      language: getLanguageForId(id, settings.language),
-      navigate(path) {
-        return dispatch(push(path));
-      }
+      language: getLanguageForId(id, settings.language)
     };
 
     return createElement(Component, {key: id, ...defaultProps});

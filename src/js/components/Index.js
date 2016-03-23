@@ -1,9 +1,19 @@
 
 import styles from 'scss/components/index';
 
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 export default class Index extends Component {
+
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
+  componentDidMount() {
+    const {router} = this.context;
+
+    console.log(router);
+  }
 
   render() {
     return (
