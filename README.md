@@ -243,7 +243,7 @@ Assets is a neat utility that handles a couple things. Since we use Webpack to b
 ```js
 import {getImageAsset} from 'js/lib/utils/assets';
 
-const logo = getImageAsset('logo.png'); // http://some.url.com/images/logo.png
+const logo = getImageAsset('logo.png'); // http://some.url.com/files/images/logo.png
 ```
 
 ##### Sound Assets ```src/sounds/```
@@ -251,7 +251,7 @@ const logo = getImageAsset('logo.png'); // http://some.url.com/images/logo.png
 ```js
 import {getSoundAsset} from 'js/lib/utils/assets';
 
-const sound = getSoundAsset('sound.mp3'); // http://some.url.com/sounds/sound.mp3
+const sound = getSoundAsset('sound.mp3'); // http://some.url.com/files/sounds/sound.mp3
 ```
 
 ##### Load Assets
