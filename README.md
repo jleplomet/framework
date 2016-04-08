@@ -228,6 +228,8 @@ bootCore().then(() => {
 });
 ```
 
+React land stuff coming soon...
+
 ## Utility Functions
 
 While this framework is a little opinionated by using React to handle the site structure, routing, and data management layer (Redux), it also includes a few scripts that can be used outside of React should you choose not to follow this setup. I got tired of writing the same tired code over and over again for projects. Here is an intro to these utility functions.
