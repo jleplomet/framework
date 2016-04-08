@@ -207,8 +207,6 @@ import {
 
 import routes from './routes';
 
-import {addListenerOnce, emitListenerType} from 'js/lib/utils/emitter';
-
 // initialize lib/core and set which history type to create the store with
 // default is MEMORY_HISTORY
 initCore();
