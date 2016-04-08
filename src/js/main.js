@@ -12,8 +12,6 @@ import {
 
 import routes from './routes';
 
-import * as device from 'js/lib/utils/device';
-
 // initialize lib/core and set which history type to create the store with
 // default is MEMORY_HISTORY
 initCore();

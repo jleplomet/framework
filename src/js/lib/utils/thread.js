@@ -15,7 +15,7 @@ import cdnurl from 'js/cdnurl';
  *     hello(name) {
  *       // some complex processing?
  *
- *       this.emit('hello', {name})
+ *       self.emit('hello', {name})
  *     }
  *   });
  *   thread.on('hello', data => console.log('hello', data.name));

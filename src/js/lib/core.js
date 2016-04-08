@@ -6,6 +6,7 @@ import {settingsUpdate} from './actions';
 import {configureStore, updateStoreReducers, getHistory} from './store/configureStore';
 import {loadLanguageFile} from './utils/language';
 import {loadAssets} from './utils/assets';
+import {emitListenerType, addListenerOnce} from './utils/emitter';
 import RootComponent from './containers/RootComponent';
 import CoreComponent from './containers/CoreComponent';
 
@@ -14,6 +15,7 @@ const NAMESPACE = '[lib/core]';
 let store = false;
 let coreBootMethods = [];
 let reducersAdded = false;
+let domRendered = false;
 
 /**
  * Default history type. Routing does not persist state across sessions.
@@ -69,8 +71,11 @@ export function bootCore() {
     const {
       cdnurl,
       assets,
+      assetsLoadProgress,
+      assetsMaxConnections,
       languageCode,
-      languageFile
+      languageFile,
+      runPerformanceTest
     } = settings.toJS();
 
     if (languageFile) {
@@ -79,12 +84,24 @@ export function bootCore() {
       );
     }
 
-    coreBootMethods.push(loadAssets.bind(null, assets));
+    coreBootMethods.push(loadAssets.bind(null, assets, assetsLoadProgress, assetsMaxConnections));
+    
+    if (runPerformanceTest) {
+      // for the performance test, lets make sure our initial dom is rendered so whoever needs to 
+      // handle the test will have access to the dom.
+      coreBootMethods.push(renderDom);
+      
+      coreBootMethods.push(performanceTest);
+    }
 
     coreBootMethods.reduce((sequence, bootMethod) => {
       return sequence.then(() => bootMethod());
     }, Promise.resolve())
-      .then(() => resolve(store))
+      .then(() => {
+        console.log(NAMESPACE, 'bootCore complete');
+        
+        resolve();
+      })
       .catch(error => {throw error});
   });
 }
@@ -96,6 +113,10 @@ export function bootCore() {
  * @return {Promise}
  */
 export function renderDom() {
+  if (domRendered) {
+    return console.info(NAMESPACE, 'renderDom already happened due to a performance test request. You can safely remove this call.');  
+  }
+  
   console.log(NAMESPACE, 'renderDom');
 
   return new Promise(resolve => {
@@ -111,7 +132,11 @@ export function renderDom() {
         routes={routes}
         history={getHistory()} />,
       document.querySelector(mountSelector),
-      resolve
+      () => {
+        domRendered = true;
+        
+        resolve();
+      }
     );
   });
 }
@@ -126,4 +151,14 @@ export function addReducer(key, reducer) {
   Object.assign(defaultReducers, {[key]: reducer});
 
   reducersAdded = true;
+}
+
+function performanceTest() {
+  console.log(NAMESPACE, 'performanceTest');
+  
+  return new Promise(resolve => {
+    addListenerOnce('performanceTestComplete', resolve);
+    
+    emitListenerType('performanceTest');
+  })
 }

@@ -3,16 +3,10 @@ import styles from 'scss/components/index';
 
 import React, {Component, PropTypes} from 'react';
 
-export default class Index extends Component {
-
-  static contextTypes = {
-    router: PropTypes.object
-  };
+class Index extends Component {
 
   componentDidMount() {
-    const {router} = this.context;
-
-    console.log(router);
+    
   }
 
   render() {
@@ -25,3 +19,9 @@ export default class Index extends Component {
     )
   }
 }
+
+Index.contextTypes = {
+  router: PropTypes.object
+}
+
+export default Index;

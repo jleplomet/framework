@@ -3,6 +3,8 @@ import {fromJS} from 'immutable';
 
 const settings = {
   assets: [],
+  assetsLoadProgress: false,
+  assetsMaxConnections: 10,
   cdnurl: 'files/',
   languageCode: 'en_us',
   languageFile: false,
@@ -12,7 +14,8 @@ const settings = {
   transitionName: 'swap',
   transitionEnterTimeout: 500,
   transitionLeaveTimeout: 500,
-  staticComponents: []
+  staticComponents: [],
+  runPerformanceTest: false
 };
 
 export default fromJS(settings);
