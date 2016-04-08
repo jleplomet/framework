@@ -293,7 +293,7 @@ if (device.retina()) {
 if (!device.webGL) { ... }
 
 // for mobile this utility really shines! we try to actually figure out what device you are on by testing some webGL stuff. 
-// I guess Apple reports its processor type and with figuring out screen size, we can determine actual the device.
+// I guess Apple reports its processor type and with figuring out the screen size, we can determine the actual device.
 if (device.phone && device.device === 'iPhone 6s Plus') {
  // we are on the latest and greatest... 
 }
