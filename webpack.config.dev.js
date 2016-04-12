@@ -3,11 +3,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
-var precss = require('precss');
 var autoprefixer = require('autoprefixer');
-var postcssImport = require('postcss-import');
-var postcssMixins = require('postcss-mixins');
-var postcssAdvancedVariables = require('postcss-advanced-variables');
 var resolve = require('./webpack/resolve');
 var cdnurl = require('./src/js/cdnurl');
 
@@ -37,7 +33,7 @@ module.exports = {
       // CSS FILES
       {
         test: /\.(scss|css)$/,
-        loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]&sourceMap!postcss'
+        loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]&sourceMap!postcss!sass?sourceMap'
       },
       // FONT FILES
       {
@@ -64,11 +60,7 @@ module.exports = {
 
   postcss: function(webpack) {
     return [
-      postcssImport({addDependencyTo: webpack}),
-      postcssMixins(),
-      postcssAdvancedVariables(),
-      autoprefixer({ browsers: ['last 2 versions'] }),
-      precss()
+      autoprefixer({ browsers: ['last 2 versions'] })
     ]
   },
 

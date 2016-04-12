@@ -1,6 +1,6 @@
 
 module.exports = {
-  extensions: ['', '.js', '.css', '.scss'],
+  extensions: ['', '.js', '.scss', '.css'],
 
   modulesDirectories: [
     'node_modules',

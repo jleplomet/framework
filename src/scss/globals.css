@@ -1,9 +1,0 @@
-
-@import "variables";
-@import "mixins";
-
-:global {
-  .wrapper {
-    @mixin position-relative 100%, 100%;
-  }
-}

@@ -28,6 +28,12 @@ export const safari = BROWSER.browser.safari;
 export const firefox = BROWSER.browser.firefox;
 
 /**
+ * Determine if current browser vendor is Microsoft Edge
+ * @type {bool}
+ */
+export const Edge = BROWSER.browser.edge; 
+
+/**
  * Determine if current browser vendor is IE
  * @type {bool}
  */
@@ -118,6 +124,7 @@ function detectBrowser() {
       chrome:  searchUA('chrome'),
       safari:  searchUA('safari') && !searchUA('chrome'),
       firefox: searchUA('firefox'),
+      edge:    searchUA('windows') && searchUA('edge'),
       ie:      searchUA('msie') || (searchUA('trident') && searchUA('rv:')),
       ie9:     searchUA('msie') && searchUA('9.0')
     },

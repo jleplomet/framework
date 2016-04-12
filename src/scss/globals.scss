@@ -1,0 +1,8 @@
+
+@import "mixins";
+
+:global {
+  .wrapper {
+    @include position-relative(100%, 100%);
+  }
+}

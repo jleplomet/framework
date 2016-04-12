@@ -1,12 +1,12 @@
 
 import styles from 'scss/components/index';
 
-import React, {Component, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react'; 
 
 class Index extends Component {
 
   componentDidMount() {
-    
+
   }
 
   render() {
