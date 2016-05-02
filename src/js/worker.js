@@ -1,4 +1,6 @@
 
+self.addEventListener('message', receiveMessage);
+
 function receiveMessage(event) {
   var data         = event.data;
   var action       = data.action;
@@ -11,7 +13,7 @@ function receiveMessage(event) {
       Object.assign(self, _parse(payload.methods));
       break;
     case 'execute':
-      if (self.hasOwnProperty(method)) {
+      if (self[method]) {
         self[method].apply(null, payload.args);
       }
       break;
@@ -20,11 +22,15 @@ function receiveMessage(event) {
       delete data.method;
       delete data.transferable;
 
-      if (self.hasOwnProperty(method)) {
+      if (self[method]) {
         self[method].apply(null, convertObjToArray(payload));
       }
       break;
   }
+}
+
+function log() {
+  emit("log", Array.prototype.slice.call(arguments));
 }
 
 function emit(type, payload) {
@@ -37,8 +43,6 @@ function emitTransferable(type, payload, transferable) {
     transferable
   );
 }
-
-self.addEventListener('message', receiveMessage);
 
 function convertObjToArray(obj) {
   return Object.keys(obj).map(function(k) {return obj[k];});

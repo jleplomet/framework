@@ -109,6 +109,10 @@ export default class Thread {
     );
   }
 
+  _onLog(event) {
+    console.log.apply(console, event)
+  }
+
   _onMessage(event) {
     const data         = event.data;
     const type         = data.type;
@@ -119,6 +123,10 @@ export default class Thread {
       // remove type and transferable from returned payload, avoid clutter.
       delete payload.type;
       delete payload.transferable;
+    }
+
+    if (type === "log") {
+      return this._onLog(payload)
     }
 
     if (this._callbacks.hasOwnProperty(type)) {
