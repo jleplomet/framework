@@ -26,7 +26,11 @@ function receiveMessage(event) {
         self[method].apply(null, convertObjToArray(payload));
       }
       break;
+    case 'remove':
+      delete self[method];
+      break;
   }
+
 }
 
 function log() {

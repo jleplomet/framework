@@ -12,18 +12,30 @@ import {EventEmitter} from 'fbemitter';
 const _emitter = new EventEmitter();
 
 
-export function addListener(type, callback) {
-  return _emitter.addListener(type, callback);
+export function addListener(type, callback, cache) {
+  const listener = _emitter.addListener(type, callback);
+
+  if (cache) {
+    cache.push(listener)
+  }
+
+  return listener;
 }
 
 export function addListenerOnce(type, callback) {
   return _emitter.once(type, callback);
 }
 
-export function emitListenerType(type, ...args) {
+export function emitListener(type, ...args) {
   _emitter.emit(type, ...args);
 }
 
-export function removeAllListeners(type = false) {
+export function removeAllListeners(type) {
   _emitter.removeAllListeners(type);
+}
+
+export function removeAllListenersFromCache(cache) {
+  cache.forEach(listener => listener.remove())
+
+  cache.splice(0, cache.length);
 }

@@ -16,7 +16,6 @@ if (!muteOnLostFocusEnabled && !touch) {
   muteOnLostFocus();
 }
 
-// TODO: figure out a clean solution to handle multiple looping sounds. is there ever a case for that?
 export function playSound(id, volume = 0.75, loop = 0, interrupt = createjs.Sound.INTERRUPT_NONE) {
   return new Promise((resolve, reject) => {
     if (muted) {
@@ -41,15 +40,15 @@ export function playSoundFx(id, volume = 0.75) {
     if (muted) {
       return console.warn(`${NAMESPACE} is muted.`);
     }
-    
+
     soundFxInstanceVolume = volume;
-    
+
     soundFxInstance = createjs.Sound.play(id, {
       interrupt: createjs.Sound.INTERRUPT_NONE,
       volume: soundFxInstanceVolume,
       pan: 0.5
     });
-    
+
     soundFxInstance.on('complete', resolve);
   });
 }

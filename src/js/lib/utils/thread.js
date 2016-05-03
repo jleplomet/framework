@@ -72,6 +72,10 @@ export default class Thread {
     );
   }
 
+  remove(method) {
+    this.execute('remove', method);
+  }
+
   /**
    * Listen to callback for when the Web Worker function completes and emits an
    * event.
