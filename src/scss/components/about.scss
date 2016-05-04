@@ -1,0 +1,17 @@
+
+
+@import "../mixins";
+
+/* components/about */
+
+.contentAbout {
+  @include position-absolute(100%, 100%);
+
+  border: 1px solid green;
+}
+
+.contentContainer {
+  @include position-relative(100%, 100%);
+
+  border: 1px dashed green;
+}

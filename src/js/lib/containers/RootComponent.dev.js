@@ -5,13 +5,15 @@ import {Router} from 'react-router';
 import DevTools from './DevTools';
 
 class RootComponent extends Component {
-  
+
   render() {
     const {
       store,
       routes,
       history
     } = this.props;
+
+    console.log(routes);
 
     return (
       <Provider store={store}>

@@ -9,11 +9,19 @@ class Index extends Component {
     console.log("componentDidMount")
   }
 
+  onAbout() {
+    console.log("onAbout");
+
+    this.context.router.push("about");
+  }
+
   render() {
     return (
       <div className={styles.contentHome}>
         <div className={styles.contentContainer}>
           Hello Framework, and World!
+          <br />
+          <button onClick={this.onAbout.bind(this)}>About</button>
         </div>
       </div>
     )

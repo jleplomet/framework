@@ -4,6 +4,7 @@ var webpack = require('webpack');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 var resolve = require('./webpack/resolve');
 var cdnurl = require('./src/js/cdnurl');
@@ -112,6 +113,10 @@ module.exports = {
       minify: {
         collapseWhitespace: true
       }
-    })
+    }),
+
+    new CopyWebpackPlugin([
+      {from: 'src/js/worker.js'}
+    ])
   ]
 };

@@ -1,4 +1,7 @@
 .sass-cache
 .tmp
+dist
 build
 node_modules
+
+*.log
