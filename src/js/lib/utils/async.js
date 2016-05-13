@@ -13,8 +13,6 @@ const asyncThreadMethods = {
 }
 thread.extend(asyncThreadMethods);
 
-let _dispatch = [];
-
 /**
  * Utility to fire a closure on a background thread.
  *
