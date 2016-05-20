@@ -1,5 +1,6 @@
 
 import "scss/main";
+import "js/plugins";
 
 import cdnurl from './cdnurl';
 
