@@ -8,7 +8,7 @@ This boilerplate is 100% for my development needs only :-)
 
 ## Getting Started
 
-Go ahead and clone this repo and copy and paste all files to your project directory. Maybe at a later time, this project can be an actual package that you can install through npm. Maybe.
+Go ahead and clone this repo and copy and paste all files to your project directory.
 
 ```sh
 git clone https://github.com/jleplomet/framework.git
@@ -59,7 +59,7 @@ To see how React is used with this framework, read: [The React Docs](/docs/REACT
 
 ### Utilities
 
-This framework is not just about React. If you don't want to use React and just want to use the Utilities, read: [The Utility Docs](/docs/UTILS.md)
+This framework is not just about React. If you don't want to use React and just want to use the Utilities, read: [The Utility Docs](/docs/UTILS.md). Lots of help for webpack/dev-server stuff from [react-boilerplate](react-boilerplate).
 
 ## Features
 - JavaScript with [Babel][babel]
@@ -70,6 +70,7 @@ This framework is not just about React. If you don't want to use React and just 
   - [Redux][redux]
   - [React Router][react-router]
 
+[react-boilerplate]:https://github.com/mxstbr/react-boilerplate
 [fbemitter]:https://github.com/facebook/emitter
 [babel]:https://babeljs.io/
 [es2015]:https://babeljs.io/docs/learn-es2015/
