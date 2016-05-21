@@ -15,7 +15,6 @@ if (process.env.NODE_ENV === 'production') {
       thunkMiddleware,
       routerMiddleware(getHistory()),
       require('redux-logger')({level: 'info'})
-    ),
-    require('../containers/DevTools').instrument()
+    )
   )
 }

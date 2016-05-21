@@ -19,7 +19,7 @@ class Index extends Component {
     return (
       <div className={styles.contentHome}>
         <div className={styles.contentContainer}>
-          Hello Framework, and World!
+          Hello Framework, and Jeff!
           <br />
           <button onClick={this.onAbout.bind(this)}>About</button>
         </div>

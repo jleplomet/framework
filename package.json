@@ -7,8 +7,8 @@
   "scripts": {
     "test": "",
     "clean": "rimraf build",
-    "dev": "node server.js",
-    "build:webpack": "NODE_ENV=production webpack --config webpack.config.js --display-modules",
+    "dev": "NODE_ENV=development node server",
+    "build:webpack": "NODE_ENV=production webpack --config webpack/production.js --color -p",
     "build": "npm run clean && npm run build:webpack"
   },
   "author": "Jeff Leplomet <jleplomet@gmail.com>",
@@ -16,14 +16,11 @@
   "babel": {
     "presets": [
       "es2015",
-      "react",
-      "stage-1"
+      "stage-0",
+      "react"
     ],
     "env": {
       "production": {
-        "only": [
-          "main"
-        ],
         "plugins": [
           "transform-react-remove-prop-types",
           "transform-react-constant-elements",
@@ -50,10 +47,13 @@
     "clean-webpack-plugin": "^0.1.9",
     "copy-webpack-plugin": "^3.0.0",
     "css-loader": "^0.23.1",
+    "exports-loader": "^0.6.3",
     "express": "^4.13.4",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
     "html-webpack-plugin": "^2.17.0",
+    "ip": "^1.1.3",
+    "ngrok": "^2.1.8",
     "node-sass": "^3.7.0",
     "postcss-loader": "^0.9.1",
     "rimraf": "^2.5.2",
@@ -66,23 +66,22 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
+    "babel-preset-stage-0": "^6.5.0",
     "classnames": "^2.2.5",
     "es6-promise": "^3.2.1",
     "fbemitter": "^2.0.2",
     "history": "^2.1.1",
     "immutable": "^3.8.1",
     "lodash": "^4.12.0",
-    "react": "^15.0.2",
-    "react-addons-css-transition-group": "^15.0.2",
-    "react-addons-transition-group": "^15.0.2",
-    "react-dom": "^15.0.2",
+    "react": "^15.1.0",
+    "react-addons-css-transition-group": "^15.1.0",
+    "react-addons-transition-group": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-pure-render": "^1.0.2",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
     "react-router-redux": "4.0.4",
     "redux": "^3.5.2",
-    "redux-devtools": "^3.3.1",
-    "redux-devtools-dock-monitor": "^1.1.1",
-    "redux-devtools-log-monitor": "^1.0.11",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
     "whatwg-fetch": "^1.0.0"
