@@ -13,10 +13,9 @@ const devMiddleware = (app, options) => {
   compiler.apply(new DashboardPlugin());
 
   const middleware = webpackDevMiddleware(compiler, {
-    quiet: true,
     publicPath: options.output.publicPath,
-    // noInfo: true,
-    // silent: true
+    noInfo: true,
+    silent: true
   });
 
   app.use(middleware)
