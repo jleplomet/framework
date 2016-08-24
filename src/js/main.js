@@ -24,6 +24,6 @@ updateSettings({
   languageFile: true,
   languageCode: 'en_us',
   routes
-});
+});  
 
 bootCore().then(renderDom);

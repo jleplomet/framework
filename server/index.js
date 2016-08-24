@@ -1,8 +1,8 @@
 
 const express       = require('express');
+const frontend      = require('./middleware/frontend');
 const logger        = require('./logger');
 const ngrok         = require('ngrok');
-const frontend      = require('./middleware/frontend');
 const webpackConfig = require('../webpack/development');
 
 const app         = express();

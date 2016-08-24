@@ -4,14 +4,19 @@ const path = require('path');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpack = require('webpack');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 // dev middleware
 const devMiddleware = (app, options) => {
   const compiler = webpack(options);
+
+  compiler.apply(new DashboardPlugin());
+
   const middleware = webpackDevMiddleware(compiler, {
-    noInfo: true,
+    quiet: true,
     publicPath: options.output.publicPath,
-    silent: true
+    // noInfo: true,
+    // silent: true
   });
 
   app.use(middleware)
