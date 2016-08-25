@@ -14,13 +14,17 @@
 
 module.exports = require('./base')({
   entry: [
-    'webpack-hot-middleware/client?reload=true',
+    require.resolve('webpack-dev-server/client') + '?/',
+
+    require.resolve('webpack/hot/dev-server'),
+
     './src/js/main'
   ],
 
   output: {
-    filename: '[name].js',
-    chunkFilename: '[name].chunk.js'
+    pathinfo: true,
+
+    filename: '[name].js'
   },
 
   // babel options
@@ -44,5 +48,5 @@ module.exports = require('./base')({
     })
   ],
 
-  devtool: 'inline-source-map'
+  devtool: 'eval'
 })

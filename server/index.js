@@ -1,26 +1,67 @@
 
-const express       = require('express');
-const frontend      = require('./middleware/frontend');
-const logger        = require('./logger');
-const ngrok         = require('ngrok');
-const webpackConfig = require('../webpack/development');
+var chalk   = require('chalk');
+var detect  = require('detect-port');
+var ngrok   = require('ngrok');
+var ip      = require('ip');
+var webpack = require('webpack');
+var webpackConfig    = require('../webpack/development');
+var webpackDevServer = require('webpack-dev-server');
+var webpackDashboard = require('webpack-dashboard/plugin');
 
-const app         = express();
+var defaultPort = process.env.PORT || 3000;
+var compiler;
 
-app.use(frontend(webpackConfig));
+function setupCompiler(port) {
+  compiler = webpack(webpackConfig);
 
-const port = 3000;
+  // add support for the cool webpack-dashboard
+  compiler.apply(new webpackDashboard());
+}
 
-app.listen(port, err => {
-  if (err) {
-    return logger.error(err)
-  }
+function runDevServer(port) {
+  var devServer = new webpackDevServer(compiler, {
+    hot: true,
 
-  ngrok.connect(port, (innerErr, url) => {
-    if (innerErr) {
-      return logger.error(innerErr);
+    publicPath: webpackConfig.output.publicPath,
+
+    quiet: true,
+
+    watchOptions: {
+      ignored: /node_modules/
+    }
+  });
+
+  devServer.listen(port, (error, result) => {
+    if (error) {
+      return console.log(error);
     }
 
-    logger.appStarted(port, url);
+    console.log(chalk.cyan('Starting the development server...'));
+
+    ngrok.connect(port, (innerErr, tunnelStarted) => {
+      if (innerErr) {
+        return console.log(innerErr);
+      }
+
+      var divider = chalk.gray('\n-----------------------------------');
+
+      console.log();
+      console.log(
+        chalk.bold('\nAccess URLs:') +
+        divider +
+        '\nLocalhost: ' + chalk.magenta('http://localhost:' + port) +
+        '\n      LAN: ' + chalk.magenta('http://' + ip.address() + ':' + port) +
+        (tunnelStarted ? '\n    Proxy: ' + chalk.magenta(tunnelStarted) : '') +
+        divider,
+        chalk.blue('\nPress ' + chalk.italic('CTRL-C') + ' to stop\n')
+      );
+    });
   });
-})
+}
+
+function run(port) {
+  setupCompiler(port);
+  runDevServer(port);
+}
+
+detect(defaultPort).then(port => run(port));
