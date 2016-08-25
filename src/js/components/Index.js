@@ -1,5 +1,5 @@
 
-import styles from 'scss/components/index';
+import 'scss/components/index';
 
 import React, {Component, PropTypes} from 'react';
 
@@ -10,18 +10,16 @@ class Index extends Component {
   }
 
   onAbout() {
-    console.log("onAbout");
-
     this.context.router.push("about");
   }
 
   render() {
     return (
-      <div className={styles.contentHome}>
-        <div className={styles.contentContainer}>
-          Hello Framework, and Jeff!
+      <div className={'route-index'}>
+        <div className={'index-content-container'}>
+          Hello Framework!
           <br />
-          <button onClick={this.onAbout.bind(this)}>About</button>
+          <button onClick={e => this.onAbout()}>About</button>
         </div>
       </div>
     )

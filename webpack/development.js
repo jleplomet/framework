@@ -29,11 +29,11 @@ module.exports = require('./base')({
 
   // babel options
   babelQuery: {
-    presets: ['react-hmre'],
+    // presets: ['react-hmre'],
     compact: true
   },
 
-  cssLoaders: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]&sourceMap!postcss!sass?sourceMap',
+  cssLoaders: 'style!css?sourceMap!postcss?sourceMap!sass?sourceMap',
 
   postcss: [
     autoprefixer({browsers: ['last 2 versions']})

@@ -4,14 +4,8 @@
 
 /* components/index */
 
-.contentHome {
-  @include position-absolute(100%, 100%);
-
-  border: 1px solid green;
-}
-
-.contentContainer {
+.index-content-container {
   @include position-relative(100%, 100%);
-
+  font-size: 24px;
   border: 1px dashed green;
 }

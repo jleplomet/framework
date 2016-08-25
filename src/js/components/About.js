@@ -1,5 +1,5 @@
 
-import styles from 'scss/components/about';
+import 'scss/components/about';
 
 import React, {Component, PropTypes} from 'react';
 
@@ -9,11 +9,17 @@ class About extends Component {
     console.log("componentDidMount")
   }
 
+  onBack() {
+    this.context.router.goBack();
+  }
+
   render() {
     return (
-      <div className={styles.contentAbout}>
-        <div className={styles.contentContainer}>
+      <div className={'route-about'}>
+        <div className={'about-content-container'}>
           Hello About!
+          <br />
+          <button onClick={e => this.onBack()}>Back</button>
         </div>
       </div>
     )

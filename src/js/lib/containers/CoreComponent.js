@@ -1,5 +1,5 @@
 
-import styles from 'scss/components/core';
+import 'scss/components/core';
 
 import React, {Component, PropTypes, cloneElement, createElement} from 'react';
 import {connect} from 'react-redux';
@@ -95,10 +95,10 @@ class CoreComponent extends Component {
     } = settings;
 
     return (
-      <div className={styles.contentWrapper}>
+      <div className='core-wrapper'>
         <TransitionGroup
           component='div'
-          className={styles.contentContainer}
+          className='core-route-container'
           transitionName={transitionName}
           transitionEnterTimeout={transitionEnterTimeout}
           transitionLeaveTimeout={transitionLeaveTimeout}>
