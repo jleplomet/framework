@@ -42,7 +42,7 @@ module.exports = options => ({
       // IMAGE FILES
       {
         test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file?name=images/[name].[ext]',
+        loader: 'file?name=images/[path][name].[ext]&context=src/images',
         exclude: /node_modules/
       },
       // SOUND FILES
