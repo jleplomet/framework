@@ -4,7 +4,8 @@
  */
 
 const path = require('path');
-const webpack = require('webpack')
+const webpack = require('webpack');
+const cdnurl = require('../src/js/cdnurl');
 
 // webpack plugins
 const CopyWebPackPlugin = require('copy-webpack-plugin');
@@ -14,7 +15,7 @@ module.exports = options => ({
 
   output: Object.assign({
     path: path.resolve(process.cwd(), 'build'),
-    publicPath: '/'
+    publicPath: cdnurl
   }, options.output),
 
   module: {

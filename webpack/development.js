@@ -3,14 +3,15 @@
  * Development Webpack Configuration
  */
 
- const path = require('path');
- const webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
+const cdnurl = require('../src/js/cdnurl');
 
  // webpack plugins
- const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // stuff
- var autoprefixer = require('autoprefixer');
+var autoprefixer = require('autoprefixer');
 
 module.exports = require('./base')({
   entry: [
@@ -23,7 +24,6 @@ module.exports = require('./base')({
 
   output: {
     pathinfo: true,
-
     filename: '[name].js'
   },
 
@@ -44,7 +44,8 @@ module.exports = require('./base')({
 
     new HtmlWebpackPlugin({
       template: 'src/layout/index.html',
-      inject: true
+      inject: true,
+      cdn: cdnurl
     })
   ],
 

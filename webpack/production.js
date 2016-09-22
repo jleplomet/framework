@@ -5,6 +5,7 @@
 
  const path = require('path');
  const webpack = require('webpack');
+ const cdnurl = require('../src/js/cdnurl');
 
  // webpack plugins
  const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -36,7 +37,6 @@
    output: {
      path: './build/files/',
      chunkFilename: '[name].chunk.js',
-     publicPath: 'files/',
      filename: '[name].js'
    },
 
@@ -46,7 +46,7 @@
 
    cssLoaders: ExtractTextPlugin.extract(
      'style',
-     'css?modules&importLoaders=1&localIdentName=[hash:base64:8]!postcss!sass'
+     'css!postcss!sass'
    ),
 
    postcss:[
@@ -65,11 +65,11 @@
      new ExtractTextPlugin('[name].css', {allChunks: true}),
 
      // minify js fils
-    //  new webpack.optimize.UglifyJsPlugin({
-    //    compressor: {
-    //      warnings: false
-    //    }
-    //  }),
+     new webpack.optimize.UglifyJsPlugin({
+       compressor: {
+         warnings: false
+       }
+     }),
 
      new HtmlWebpackPlugin({
        filename: '../index.html',
@@ -86,7 +86,8 @@
         // minifyCSS: true,
         // minifyURLs: true,
       },
-      inject: true
+      inject: true,
+      cdn: cdnurl
      })
    ]
  })
