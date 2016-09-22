@@ -18,19 +18,8 @@
    entry: {
      main: './src/js/main',
      vendor: [
-       'history',
-       'immutable',
        'whatwg-fetch',
-       'es6-promise',
-       'react',
-       'react-addons-css-transition-group',
-       'react-addons-transition-group',
-       'react-dom',
-       'react-redux',
-       'react-router',
-       'react-router-redux',
-       'redux',
-       'redux-thunk'
+       'es6-promise'
      ]
    },
 
@@ -73,7 +62,7 @@
 
      new HtmlWebpackPlugin({
        filename: '../index.html',
-       template: 'src/layout/index.html',
+       template: 'src/layout/index.ejs',
        minify: {
         removeComments: true,
         collapseWhitespace: true,

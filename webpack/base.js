@@ -25,37 +25,37 @@ module.exports = options => ({
         test: /\.js$/,
         loader: 'babel',
         query: options.babelQuery,
-        exclude: '/node_modules/'
+        exclude: /node_modules/
       },
       // CSS FILES
       {
         test: /\.(scss|css)$/,
         loader: options.cssLoaders,
-        exclude: '/node_modules/'
+        exclude: /node_modules/
       },
       // FONT FILES
       {
         test: /\.(woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)$/,
         loader: 'url?prefix=font/&limit=100000',
-        exclude: '/node_modules/'
+        exclude: /node_modules/
       },
       // IMAGE FILES
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file?name=images/[name].[ext]',
-        exclude: '/node_modules/'
+        exclude: /node_modules/
       },
       // SOUND FILES
       {
         test: /\.(mp3|ogg)$/,
         loader: 'file?name=sounds/[name].[ext]',
-        exclude: '/node_modules/'
+        exclude: /node_modules/
       },
       // DATA FILES
       {
         test: /\.(json)$/,
         loader: 'file?name=data/[name].[ext]',
-        exclude: '/node_modules/'
+        exclude: /node_modules/
       }
     ]
   },

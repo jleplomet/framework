@@ -29,7 +29,6 @@ module.exports = require('./base')({
 
   // babel options
   babelQuery: {
-    // presets: ['react-hmre'],
     compact: true
   },
 
@@ -43,7 +42,7 @@ module.exports = require('./base')({
     new webpack.HotModuleReplacementPlugin(),
 
     new HtmlWebpackPlugin({
-      template: 'src/layout/index.html',
+      template: 'src/layout/index.ejs',
       inject: true,
       cdn: cdnurl
     })
