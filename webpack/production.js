@@ -5,7 +5,7 @@
 
  const path = require('path');
  const webpack = require('webpack');
- const cdnurl = require('../src/js/cdnurl');
+//  const cdnurl = require('../src/js/cdnurl');
 
  // webpack plugins
  const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -16,78 +16,110 @@
 
  module.exports = require('./base')({
    entry: {
-     main: './src/js/main',
-     vendor: [
-       'history',
+     main: 'js/main',
+
+     common: [
        'immutable',
        'whatwg-fetch',
-       'es6-promise',
+       'es6-promise' // is this needed now with the babel polyfill? need to check
+     ],
+
+     react: [
        'react',
-       'react-addons-css-transition-group',
-       'react-addons-transition-group',
        'react-dom',
-       'react-redux',
-       'react-router',
+       'react-addons-css-transition-group',
+       'react-addons-transition-group'
+     ],
+
+     reactrouter: [
+       'react-router/es',
        'react-router-redux',
+       'history'
+     ],
+
+     redux: [
        'redux',
-       'redux-thunk'
+       'redux-thunk',
+       'react-redux'
      ]
    },
 
    output: {
-     path: './build/files/',
-     chunkFilename: '[name].chunk.js',
-     filename: '[name].js'
+     path: './dist/files/',
+
+     publicPath: 'files/',
+
+     filename: '[chunkhash].[name].js'
    },
 
-   babelQuery: {
-     compact: true
-   },
-
-   cssLoaders: ExtractTextPlugin.extract(
-     'style',
-     'css!postcss!sass'
-   ),
-
-   postcss:[
-     autoprefixer({browsers: ['last 2 versions']})
+   cssLoaders: [
+     {
+      loader: 'style-loader'
+     },
+     {
+       loader: 'css-loader',
+       options: {
+         sourceMap: false
+       }
+     },
+     {
+       loader: 'postcss-loader',
+       options: {
+         sourceMap: false
+       }
+     },
+     {
+       loader: 'sass-loader',
+       options: {
+         sourceMap: false
+       }
+     }
    ],
 
    plugins: [
-     new webpack.optimize.OccurrenceOrderPlugin(true),
 
-     new webpack.optimize.DedupePlugin(),
+     new webpack.optimize.CommonsChunkPlugin({
+       name: ['common', 'react', 'reactrouter', 'redux', 'manifest']
+     }),
 
-     // split vendor js files to its own file
-     new webpack.optimize.CommonsChunkPlugin('vendor', 'common.js'),
+    //  new webpack.optimize.CommonsChunkPlugin({
+    //    name: 'redux',
+    //    filename: 'common.redux.js'
+    //  }),
 
      // split css to its own file
-     new ExtractTextPlugin('[name].css', {allChunks: true}),
+    //  new ExtractTextPlugin('[name].css', {allChunks: true}),
 
      // minify js fils
      new webpack.optimize.UglifyJsPlugin({
-       compressor: {
-         warnings: false
-       }
+      beautify: false,
+      mangle: {
+        screw_ie8: true,
+        keep_fnames: true
+      },
+      compress: {
+        screw_ie8: true
+      },
+      comments: false
      }),
 
      new HtmlWebpackPlugin({
        filename: '../index.html',
-       template: 'src/layout/index.html',
-       minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        // minifyJS: true,
-        // minifyCSS: true,
-        // minifyURLs: true,
-      },
-      inject: true,
-      cdn: cdnurl
+       template: 'layout/index.html',
+       chunksSortMode: 'dependency',
+      //  minify: {
+      //   removeComments: true,
+      //   collapseWhitespace: true,
+      //   removeRedundantAttributes: true,
+      //   useShortDoctype: true,
+      //   removeEmptyAttributes: true,
+      //   removeStyleLinkTypeAttributes: true,
+      //   keepClosingSlash: true,
+      //   minifyJS: true,
+      //   minifyCSS: true,
+      //   minifyURLs: true,
+      // },
+      // inject: true
      })
    ]
  })

@@ -6,7 +6,7 @@ import {settingsUpdate} from './actions';
 import {configureStore, updateStoreReducers, getHistory} from './store/configureStore';
 import {loadLanguageFile} from './utils/language';
 import {loadAssets} from './utils/assets';
-import {emitListenerType, addListenerOnce} from './utils/emitter';
+import {emitListener, addListenerOnce} from './utils/emitter';
 import RootComponent from './containers/RootComponent';
 import CoreComponent from './containers/CoreComponent';
 

@@ -10,16 +10,7 @@ import {getLanguageForId} from '../utils/language';
 let previousPath = '';
 
 class CoreComponent extends Component {
-  static displayName = 'CoreComponent';
-
-  static propTypes = {
-    children: PropTypes.node
-  };
-
-  static childContextTypes = {
-    dispatch: PropTypes.func
-  };
-
+  
   // In order to limit the amount of props to pass down
   // we will define the most commonly passed/used props as childContextTypes
   // so any child that needs it, can get it on its own. this limits boilerplate
@@ -110,6 +101,16 @@ class CoreComponent extends Component {
     );
   }
 }
+
+CoreComponent.displayName = 'CoreComponent';
+
+CoreComponent.propTypes = {
+  children: PropTypes.node
+};
+
+CoreComponent.childContextTypes = {
+  dispatch: PropTypes.func
+};
 
 export default connect(mapStateToProps)(CoreComponent);
 

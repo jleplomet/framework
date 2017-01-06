@@ -3,51 +3,62 @@
  * Development Webpack Configuration
  */
 
-const path = require('path');
 const webpack = require('webpack');
-const cdnurl = require('../src/js/cdnurl');
 
- // webpack plugins
+// webpack plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // stuff
-var autoprefixer = require('autoprefixer');
+const autoprefixer = require('autoprefixer');
 
 module.exports = require('./base')({
-  entry: [
-    require.resolve('webpack-dev-server/client') + '?/',
+ entry: [
+  //  'react-hot-loader/patch',
 
-    require.resolve('webpack/hot/dev-server'),
+   require.resolve('webpack-dev-server/client') + '?/',
 
-    './src/js/main'
-  ],
+   require.resolve('webpack/hot/dev-server'),
 
-  output: {
-    pathinfo: true,
-    filename: '[name].js'
-  },
+   'js/main.js'
+ ],
 
-  // babel options
-  babelQuery: {
-    // presets: ['react-hmre'],
-    compact: true
-  },
+ cssLoaders: [
+   {
+     loader: 'style-loader'
+   },
+   {
+     loader: 'css-loader',
+     options: {
+       sourceMap: true
+     }
+   },
+   {
+     loader: 'postcss-loader',
+     options: {
+       sourceMap: true
+     }
+   },
+   {
+     loader: 'sass-loader',
+     options: {
+       sourceMap: true
+     }
+   }
+ ],
 
-  cssLoaders: 'style!css?sourceMap!postcss?sourceMap!sass?sourceMap',
+ performance: {
+   hints: false
+ },
 
-  postcss: [
-    autoprefixer({browsers: ['last 2 versions']})
-  ],
+ plugins: [
+   new webpack.HotModuleReplacementPlugin(),
 
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+   new HtmlWebpackPlugin({
+     template: 'layout/index.html',
 
-    new HtmlWebpackPlugin({
-      template: 'src/layout/index.html',
-      inject: true,
-      cdn: cdnurl
-    })
-  ],
+     inject: true
+   })
+ ],
 
-  devtool: 'eval'
-})
+ devtool: 'source-map'
+});

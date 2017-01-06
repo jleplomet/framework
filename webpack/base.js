@@ -3,95 +3,103 @@
  * Common Webpack Configuration
  */
 
-const path = require('path');
-const webpack = require('webpack');
-const cdnurl = require('../src/js/cdnurl');
+ const webpack = require('webpack');
+ const {resolve} = require('path');
 
-// webpack plugins
-const CopyWebPackPlugin = require('copy-webpack-plugin');
+ // webpack plugins
+ const CopyWebPackPlugin = require('copy-webpack-plugin');
 
-module.exports = options => ({
-  entry: options.entry,
+ module.exports = options => ({
+   entry: options.entry,
 
-  output: Object.assign({
-    path: path.resolve(process.cwd(), 'build'),
-    publicPath: cdnurl
-  }, options.output),
+   context: resolve(__dirname, '../src'),
 
-  module: {
-    loaders: [
-      // JS FILES
-      {
-        test: /\.js$/,
-        loader: 'babel',
-        query: options.babelQuery,
-        exclude: '/node_modules/'
-      },
-      // CSS FILES
-      {
-        test: /\.(scss|css)$/,
-        loader: options.cssLoaders,
-        exclude: '/node_modules/'
-      },
-      // FONT FILES
-      {
-        test: /\.(woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)$/,
-        loader: 'url?prefix=font/&limit=100000',
-        exclude: '/node_modules/'
-      },
-      // IMAGE FILES
-      {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file?name=images/[name].[ext]',
-        exclude: '/node_modules/'
-      },
-      // SOUND FILES
-      {
-        test: /\.(mp3|ogg)$/,
-        loader: 'file?name=sounds/[name].[ext]',
-        exclude: '/node_modules/'
-      },
-      // DATA FILES
-      {
-        test: /\.(json)$/,
-        loader: 'file?name=data/[name].[ext]',
-        exclude: '/node_modules/'
-      }
-    ]
-  },
+   output: Object.assign({
+     path: resolve(__dirname, '../dist'),
 
-  plugins: options.plugins.concat([
-    new webpack.ProvidePlugin({
-      fetch: 'exports?self.fetch!whatwg-fetch'
-    }),
+     publicPath: '/',
 
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-      }
-    }),
+     filename: '[name].js'
+   }, options.output),
 
-    new CopyWebPackPlugin([
-      {from: 'src/js/worker.js'}
-    ])
-  ]),
+   module: {
+     rules: [
+       // JS FILES
+       {
+         test: /\.(js|jsx)$/,
+         exclude: /node_modules/,
+         use: [
+           'babel-loader'
+         ]
+       },
+       // CSS FILES
+       {
+         test: /\.(scss|css)$/,
+         use: options.cssLoaders,
+         exclude: /node_modules/
+       },
+       // FONT FILES
+       {
+         test: /\.(woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)$/,
+         loader: 'url-loader?prefix=font/&limit=100000',
+         exclude: /node_modules/
+       },
+       // IMAGE FILES
+       {
+         test: /\.(png|jpg|gif|svg)$/,
+         loader: 'file-loader?name=images/[name].[ext]',
+         exclude: /node_modules/
+       },
+       // SOUND FILES
+       {
+         test: /\.(mp3|ogg)$/,
+         loader: 'file-loader?name=sounds/[name].[ext]',
+         exclude: /node_modules/
+       },
+       // DATA FILES
+       {
+         test: /\.(json)$/,
+         loader: 'file-loader?name=data/[name].[ext]',
+         exclude: /node_modules/
+       }
+     ]
+   },
 
-  postcss: () => options.postcss,
+   resolve: {
+     extensions: ['.js', '.scss', '.css'],
 
-  devtool: options.devtool,
+     modules: [
+       resolve(__dirname, '../src'),
 
-  target: 'web',
+       'node_modules'
+     ]
+   },
 
-  stats: false,
+   plugins: options.plugins.concat([
+    //  new webpack.optimize.CommonsChunkPlugin({
+    //    name: 'common',
 
-  progress: true,
+    //    minChunks: Infinity,
 
-  resolve: {
-    extensions: ['', '.js', '.scss', '.css'],
+    //    filename: 'common.js'
+    //  }),
 
-    modulesDirectories: [
-      'node_modules',
-      './src'
-    ]
-  }
-});
+     new webpack.DefinePlugin({
+       'process.env': {NODE_ENV: JSON.stringify(process.env.NODE_ENV)}
+     }),
+
+     new webpack.NamedModulesPlugin(),
+
+     new CopyWebPackPlugin([
+       {from: 'js/worker.js'}
+     ])
+   ]),
+
+   target: 'web',
+
+   stats: false,
+
+   performance: Object.assign({}, options.performance),
+
+   devtool: options.devtool
+ });

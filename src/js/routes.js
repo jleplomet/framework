@@ -1,7 +1,7 @@
 
 import React from 'react';
-import {Route, IndexRoute} from 'react-router';
-import {lazy} from 'js/lib/utils/webpack';
+import {Route, IndexRoute} from 'react-router/es';
+// import {lazy} from 'js/lib/utils/webpack';
 
 import CoreComponent from 'js/lib/containers/CoreComponent';
 import Index from 'js/components/Index';
